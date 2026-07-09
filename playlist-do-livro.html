@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Playlist do Livro — A História do Hardcore Emocional</title>
+  <meta name="description" content="A playlist oficial de A História do Hardcore Emocional. Cada capítulo tem sua trilha sonora." />
+  <link rel="canonical" href="https://hcemocional.com.br/playlist-do-livro" />
+
+  <!-- Favicon / ícones -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0d0d0d" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="A História do Hardcore Emocional" />
+  <meta property="og:title" content="Playlist do Livro" />
+  <meta property="og:description" content="A playlist oficial do livro — da proto-punk dos anos 60 ao sad trap dos anos 2010." />
+  <meta property="og:image" content="https://hcemocional.com.br/og-image.jpg" />
+  <meta property="og:url" content="https://hcemocional.com.br/playlist-do-livro" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <!--
+    ===================================================================
+    CONFIGURAÇÃO — troque APENAS a linha abaixo pelo link real da
+    playlist no Spotify (ex.: "https://open.spotify.com/playlist/XXXX").
+    Enquanto ficar com o placeholder {{...}}, a página NÃO redireciona
+    e mostra o aviso de "playlist em breve".
+    ===================================================================
+  -->
+  <script>
+    window.SPOTIFY_PLAYLIST_URL = "{{SPOTIFY_PLAYLIST_URL}}";
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --acid: #d3f74f;
+      --paper: #f5f0e8;
+      --red: #e8321a;
+      --font-head: 'Bebas Neue', sans-serif;
+      --font-body: 'Barlow Condensed', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--black); color: var(--paper);
+      font-family: var(--font-body);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 24px;
+    }
+    .wrap { max-width: 560px; }
+    .kicker {
+      font-family: var(--font-mono); font-size: 13px; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase; color: var(--acid);
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-family: var(--font-head); font-size: clamp(44px, 12vw, 88px);
+      line-height: .92; letter-spacing: .01em; margin-bottom: 24px;
+    }
+    p { font-size: 19px; line-height: 1.5; margin-bottom: 32px; opacity: .9; }
+    .btn {
+      display: inline-block; background: var(--acid); color: var(--black);
+      font-family: var(--font-mono); font-weight: 700; font-size: 15px;
+      letter-spacing: .05em; text-transform: uppercase;
+      padding: 16px 32px; border-radius: 2px; text-decoration: none;
+      transition: transform .15s ease;
+    }
+    .btn:hover { transform: translate(-2px, -2px); }
+    .btn.ghost { background: transparent; color: var(--paper); border: 1px solid rgba(245,240,232,.35); margin-left: 8px; }
+    .soon { font-family: var(--font-mono); font-size: 14px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--acid); }
+    .redir { font-family: var(--font-mono); font-size: 13px; opacity: .6; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">A História do Hardcore Emocional</div>
+    <h1>Playlist<br>do Livro</h1>
+
+    <!-- Estado: playlist ainda não configurada -->
+    <div id="soon-state">
+      <p>Cada capítulo do livro tem sua trilha sonora — da proto-punk dos anos 60 ao sad trap dos anos 2010.</p>
+      <p class="soon">A playlist chega junto com o lançamento ★</p>
+      <p style="margin-top:32px"><a class="btn" href="/">Voltar ao site</a></p>
+    </div>
+
+    <!-- Estado: redirecionando para o Spotify (mostrado só quando há link) -->
+    <div id="redir-state" hidden>
+      <p>Levando você para a playlist oficial no Spotify…</p>
+      <p>
+        <a id="spotify-link" class="btn" href="#" rel="noopener">Abrir no Spotify</a>
+        <a class="btn ghost" href="/">Voltar ao site</a>
+      </p>
+      <p class="redir">Se nada acontecer, toque no botão acima.</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var url = window.SPOTIFY_PLAYLIST_URL;
+      var isSet = url && String(url).indexOf('{{') === -1;
+      if (isSet) {
+        document.getElementById('soon-state').hidden = true;
+        var redir = document.getElementById('redir-state');
+        redir.hidden = false;
+        document.getElementById('spotify-link').href = url;
+        // Redireciona automaticamente após um instante
+        setTimeout(function () { window.location.replace(url); }, 600);
+      }
+    })();
+  </script>
+</body>
+</html>
