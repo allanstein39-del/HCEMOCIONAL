@@ -632,8 +632,8 @@
       CATARSE_URL: "https://www.catarse.me/historia-do-hcemo",
       // TODO: inserir ID numérico do projeto no Catarse p/ progresso via API
       CATARSE_PROJECT_ID: "{{CATARSE_PROJECT_ID}}",
-      // URL da playlist do livro
-      SPOTIFY_PLAYLIST_URL: "https://hcemocional.com.br/playlist-do-livro",
+      // TODO: inserir URL da playlist oficial do Spotify
+      SPOTIFY_PLAYLIST_URL: "{{SPOTIFY_PLAYLIST_URL}}",
       // TODO: conectar Mailchimp/Brevo/planilha (endpoint do formulário)
       FORM_ACTION_URL: "{{FORM_ACTION_URL}}",
       // Data/hora do lançamento (America/Sao_Paulo = UTC-3)
@@ -2254,8 +2254,22 @@ function showPage(id) {
   document.getElementById('page-' + id).classList.add('active');
   document.getElementById('nav-' + id)?.classList.add('active');
   window.scrollTo(0, 0);
+  if (window.history && location.hash !== '#' + id) {
+    history.replaceState(null, '', '#' + id);
+  }
   return false;
 }
+
+// Deep-linking por hash: /#playlist abre a aba Playlist (usado por /playlist-do-livro)
+(function () {
+  var valid = ['home', 'sobre', 'playlist', 'bandas', 'livro'];
+  function openFromHash() {
+    var id = (location.hash || '').replace('#', '');
+    if (valid.indexOf(id) !== -1) showPage(id);
+  }
+  openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+})();
 
 // Reveal on scroll
 const observer = new IntersectionObserver(entries => {
