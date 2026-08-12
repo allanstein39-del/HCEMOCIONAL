@@ -972,7 +972,7 @@
       <h2 class="section-title">Leia o<br>1º capítulo.</h2>
       <p style="font-size:18px;line-height:1.5;opacity:.85;margin:16px auto 0;max-width:560px">Baixe grátis o Capítulo 01 — <em>A história do hardcore emocional</em> — e sinta o tom do livro antes de garantir o seu.</p>
       <div style="margin-top:32px">
-        <a class="btn btn-red" href="/cap-01-a-historia-do-hardcore-emocional.pdf" download target="_blank" rel="noopener">★ Baixar o 1º capítulo (PDF)</a>
+        <a id="dl-cap1" class="btn btn-red" href="/cap-01-a-historia-do-hardcore-emocional.pdf" download="A-Historia-do-Hardcore-Emocional-Cap-01.pdf" rel="noopener">★ Baixar o 1º capítulo (PDF)</a>
       </div>
       <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;opacity:.6">PDF · leitura livre · ~7 MB</div>
     </div>
@@ -2367,6 +2367,35 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
         form.reset();
       }
+    });
+  }
+
+  // --- Download forçado do 1º capítulo (PDF) ---
+  // Em host estático (GitHub Pages) não dá pra mandar Content-Disposition,
+  // então buscamos o arquivo como blob e disparamos o salvamento.
+  var dl = document.getElementById('dl-cap1');
+  if (dl && window.fetch) {
+    dl.addEventListener('click', function (e) {
+      var href = dl.getAttribute('href');
+      var name = dl.getAttribute('download') || 'capitulo-01.pdf';
+      var original = dl.textContent;
+      e.preventDefault();
+      dl.textContent = 'Baixando…';
+      fetch(href).then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.blob();
+      }).then(function (blob) {
+        var obj = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = obj; a.download = name;
+        document.body.appendChild(a); a.click();
+        setTimeout(function () { URL.revokeObjectURL(obj); a.remove(); }, 1500);
+        dl.textContent = original;
+      }).catch(function () {
+        // Fallback: navegação direta (deixa o navegador cuidar)
+        dl.textContent = original;
+        window.location.href = href;
+      });
     });
   }
 })();
