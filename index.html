@@ -642,8 +642,8 @@
       CATARSE_PROJECT_ID: "{{CATARSE_PROJECT_ID}}",
       // TODO: inserir URL da playlist oficial do Spotify
       SPOTIFY_PLAYLIST_URL: "{{SPOTIFY_PLAYLIST_URL}}",
-      // Endpoint do formulário — FormSubmit.co envia cada cadastro para o e-mail abaixo.
-      FORM_ACTION_URL: "https://formsubmit.co/allanstein39@gmail.com",
+      // Endpoint do formulário — Google Apps Script grava cada cadastro na planilha.
+      SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec",
       // Data/hora do lançamento (America/Sao_Paulo = UTC-3)
       LAUNCH_ISO: "2026-08-14T00:00:00-03:00"
     };
@@ -984,16 +984,13 @@
       <div class="eyebrow">Não perde a data</div>
       <h2 class="section-title" style="color:var(--ink);font-size:clamp(40px,6vw,80px)">Me avisa<br>no dia 14.</h2>
       <p style="font-size:18px;line-height:1.5;color:var(--ink);margin-top:12px;max-width:560px">Deixa teu e-mail que a gente te chama quando a campanha abrir. Sem spam, prometo — só no dia.</p>
-      <!-- Envio via FormSubmit.co: cada cadastro cai no e-mail configurado em HCEMO.FORM_ACTION_URL -->
-      <form id="lead-form" class="lead-form" method="post" action="https://formsubmit.co/allanstein39@gmail.com">
+      <!-- Envio via Google Apps Script: cada cadastro é gravado na planilha (HCEMO.SHEET_ENDPOINT) -->
+      <form id="lead-form" class="lead-form" method="post" action="https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec">
         <label for="lead-email" style="position:absolute;left:-9999px">Seu e-mail</label>
         <input id="lead-email" type="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
-        <!-- Configuração FormSubmit -->
-        <input type="hidden" name="_subject" value="Novo cadastro — Me avisa no dia 14 (HCEMO)" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_origem" value="me-avisa-14" />
         <!-- Honeypot anti-spam -->
-        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button type="submit" class="btn btn-red">★ Quero ser avisado</button>
       </form>
       <div id="lead-msg" role="status" aria-live="polite" style="color:var(--ink)"></div>
@@ -2348,25 +2345,41 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       .catch(function () { /* mantém fallback estático já no HTML */ });
   }
 
-  // --- Captura de lead "Me avisa no dia 14" ---
+  // --- Captura de lead "Me avisa no dia 14" (grava na planilha via Apps Script) ---
   var form = document.getElementById('lead-form');
   if (form) {
-    if (isSet(C.FORM_ACTION_URL)) form.action = C.FORM_ACTION_URL;
+    var endpoint = isSet(C.SHEET_ENDPOINT) ? C.SHEET_ENDPOINT : form.getAttribute('action');
     form.addEventListener('submit', function (e) {
+      e.preventDefault();
       var email = form.querySelector('input[type="email"]');
+      var honey = form.querySelector('input[name="_gotcha"]');
+      var btn = form.querySelector('button[type="submit"]');
       var msg = document.getElementById('lead-msg');
       var valid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
       if (!valid) {
-        e.preventDefault();
         if (msg) { msg.textContent = 'Põe um e-mail de verdade, vai. 🙃'; msg.style.color = 'var(--red)'; }
         return;
       }
-      // Sem endpoint configurado ainda: não envia pra lugar nenhum.
-      if (!isSet(C.FORM_ACTION_URL)) {
-        e.preventDefault();
+      // Bot preencheu o honeypot: finge que deu certo e não envia.
+      if (honey && honey.value) {
         if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
         form.reset();
+        return;
       }
+      var body = new URLSearchParams({ email: email.value, _origem: 'me-avisa-14' });
+      if (btn) { btn.disabled = true; }
+      if (msg) { msg.textContent = 'Enviando…'; msg.style.color = 'var(--ink)'; }
+      // mode:'no-cors' — o Apps Script não devolve cabeçalho CORS; o POST é
+      // executado mesmo sem conseguirmos ler a resposta (opaque).
+      fetch(endpoint, { method: 'POST', mode: 'no-cors', body: body })
+        .then(function () {
+          if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
+          form.reset();
+        })
+        .catch(function () {
+          if (msg) { msg.textContent = 'Deu ruim no envio. Tenta de novo? 🙃'; msg.style.color = 'var(--red)'; }
+        })
+        .finally(function () { if (btn) { btn.disabled = false; } });
     });
   }
 
