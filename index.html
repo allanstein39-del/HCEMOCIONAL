@@ -425,7 +425,8 @@
       background: var(--black); padding: 64px 48px;
     }
     .catarse-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px;
+      align-items: start;
     }
     .product-card {
       border: 2px solid var(--acid); padding: 28px;
@@ -913,8 +914,8 @@
           alt="Capa do livro A História do Hardcore Emocional"
           width="1340" height="1830"
           style="
-            max-width: 100%;
-            max-height: 100%;
+            max-width: min(100%, 380px);
+            max-height: min(66vh, 540px);
             width: auto;
             height: auto;
             object-fit: contain;
@@ -1796,6 +1797,7 @@
       <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:40px;font-family:var(--font-mono);letter-spacing:.02em">As três recompensas oficiais da campanha. Frete grátis para todo o Brasil.</p>
       <div class="catarse-grid">
         <div class="product-card">
+          <div class="product-badge">Entrada</div>
           <h3>Emo é gente triste, né?</h3>
           <p style="font-size:15px;opacity:.7;line-height:1.5">Todo show começa num porão. Essa é a sua entrada. Você recebe o livro físico direto na sua casa.</p>
           <div class="price">R$ 99,00</div>
