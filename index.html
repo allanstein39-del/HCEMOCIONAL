@@ -13,6 +13,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <meta name="theme-color" content="#0d0d0d" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Hardcore Emocional" />
+  <meta name="format-detection" content="telephone=no" />
 
   <!-- Open Graph (WhatsApp, Facebook, etc.) -->
   <meta property="og:type" content="website" />
@@ -53,7 +59,9 @@
     html { scroll-behavior: smooth; }
     body { background: var(--black); color: var(--paper); font-family: var(--font-body); overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
-    img { max-width: 100%; display: block; }
+    img, iframe, video { max-width: 100%; }
+    img { display: block; }
+    body { overflow-wrap: break-word; }
 
     /* ========== NAV ========== */
     nav {
@@ -90,6 +98,32 @@
       font-weight: 700;
     }
     .nav-links a.cta-nav:hover { background: var(--acid); color: var(--black); border-color: var(--acid); }
+
+    /* Botão hambúrguer — só aparece no mobile */
+    .nav-toggle {
+      display: none;
+      background: transparent; border: 2px solid var(--acid);
+      width: 42px; height: 38px; padding: 0;
+      cursor: pointer; align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 20px; height: 2px; background: var(--acid);
+      transition: transform .2s, opacity .2s;
+    }
+    .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* Link "pular para o conteúdo" (acessibilidade / teclado) */
+    .skip-link {
+      position: absolute; left: -9999px; top: 0; z-index: 200;
+      background: var(--acid); color: var(--black);
+      font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 10px 16px;
+    }
+    .skip-link:focus { left: 8px; top: 8px; }
 
     /* ========== PAGE SYSTEM ========== */
     .page { display: none; padding-top: 52px; min-height: 100vh; }
@@ -525,20 +559,113 @@
     }
 
     /* ========== RESPONSIVE ========== */
+
+    /* Tablet e menores: layout de coluna única */
     @media (max-width: 900px) {
-      nav { padding: 0 16px; }
-      .nav-links { gap: 0; overflow-x: auto; }
-      .nav-links a { padding: 6px 8px; font-size: 9px; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
       .section { padding: 60px 20px; }
+      .order-hero, .catarse-section { padding: 60px 20px; }
       .sobre-grid, .order-grid, .catarse-grid, .playlist-intro, .bands-intro, .footer-grid { grid-template-columns: 1fr; }
+      .sobre-grid, .order-grid, .playlist-intro, .bands-intro { gap: 40px; }
       .extras-grid { grid-template-columns: 1fr 1fr; }
       .footer-grid { grid-template-columns: 1fr 1fr; }
     }
+
+    /* ===== NAVEGAÇÃO MOBILE (hambúrguer) ===== */
+    @media (max-width: 820px) {
+      nav { padding: 0 16px; }
+      .nav-toggle { display: inline-flex; }
+      .nav-links {
+        position: fixed; top: 52px; left: 0; right: 0;
+        flex-direction: column; gap: 0; align-items: stretch;
+        background: var(--black);
+        border-bottom: 2px solid var(--acid);
+        padding: 8px 16px 16px;
+        transform: translateY(-12px);
+        opacity: 0; visibility: hidden; pointer-events: none;
+        transition: opacity .18s ease, transform .18s ease, visibility .18s;
+        max-height: calc(100vh - 52px); overflow-y: auto;
+      }
+      .nav-links.open {
+        transform: translateY(0); opacity: 1; visibility: visible; pointer-events: auto;
+      }
+      .nav-links a {
+        font-size: 13px; letter-spacing: .14em;
+        padding: 16px 12px; border: none;
+        border-bottom: 1px solid rgba(211,247,79,.15);
+        text-align: left;
+      }
+      .nav-links a:last-child { border-bottom: none; }
+      .nav-links a.cta-nav { margin-top: 8px; text-align: center; }
+    }
+
+    /* Hero: empilha texto e capa, mas mantém a capa visível no mobile */
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: minmax(0, 1fr); }
+      .hero-left, .hero-right { min-width: 0; }
+      .hero-left { padding: 56px 24px 32px; text-align: left; }
+      .hero-sub { font-size: 18px; margin-top: 24px; }
+      .hero-ctas { margin-top: 28px; }
+      .hero-right {
+        border-left: none !important;
+        min-height: 0 !important;
+        padding: 8px 0 48px !important;
+      }
+      .hero-right > div { padding: 0 24px !important; }
+      .hero-right img { max-height: 46vh !important; }
+    }
+
+    /* Botões ocupam a largura em telas estreitas para facilitar o toque */
     @media (max-width: 600px) {
       .extras-grid { grid-template-columns: 1fr; }
-      .bands-grid { grid-template-columns: repeat(3, 1fr); }
+      .bands-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-ctas { flex-direction: column; align-items: stretch; }
+      .hero-ctas .btn { justify-content: center; width: 100%; }
+      .btn { padding: 15px 22px; font-size: 11px; }
+      .lead-form { flex-direction: column; }
+      .lead-form input, .lead-form button { width: 100%; }
+      .order-price { font-size: 60px; }
+      .order-price span { font-size: 24px; }
+      .fact-n { font-size: 44px; }
+      .era-number { font-size: 52px; }
+      .era-info h3 { font-size: 30px; }
+      .footer-legal { flex-direction: column; gap: 8px; text-align: center; }
+      /* Faixas de música: esconde a tag de era p/ não estourar a largura */
+      .track-row { grid-template-columns: 28px 1fr auto; gap: 10px; padding: 12px; }
+      .track-era-tag { display: none; }
+      .zine-quote { transform: none; }
+      .quote-block { padding: 16px 20px; }
+      .quote-block p { font-size: 19px; }
+    }
+
+    /* Telas bem pequenas */
+    @media (max-width: 380px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .bands-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-left { padding: 48px 18px 28px; }
+      .section { padding: 48px 16px; }
+    }
+
+    /* ===== Segurança anti-overflow no mobile =====
+       Grades definidas por estilo inline não respondem a media queries;
+       aqui elas colapsam para 1 coluna em telas estreitas. */
+    @media (max-width: 720px) {
+      [style*="grid-template-columns:1fr 1fr"],
+      [style*="grid-template-columns: 1fr 1fr"],
+      [style*="grid-template-columns:1.4fr 1fr"],
+      [style*="grid-template-columns:1fr auto"] {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 24px !important;
+      }
+      /* filhos de grid/flex podem encolher abaixo do min-content */
+      .footer-grid > *, .sobre-grid > *, .order-grid > *,
+      .catarse-grid > *, .playlist-intro > *, .bands-intro > * {
+        min-width: 0;
+      }
+      /* cabeçalhos de era (ex.: "2010s · Sad Trap") quebram em telas estreitas */
+      [style*="display:flex"][style*="align-items:baseline"] { flex-wrap: wrap; }
+      .footer-grid { gap: 32px 24px; }
+      .footer-brand { font-size: clamp(40px, 12vw, 56px); }
+      .footer-links a { overflow-wrap: anywhere; }
     }
 
     /* ========== SCROLL ANIMATIONS ========== */
@@ -732,6 +859,9 @@
 </head>
 <body>
 
+<!-- Pular para o conteúdo -->
+<a href="#main" class="skip-link">Pular para o conteúdo</a>
+
 <!-- NAV -->
 <nav>
   <div class="nav-brand">
@@ -739,13 +869,18 @@
       <img src="/logo-dark-bg.png" alt="A História do Hardcore Emocional" width="537" height="335" fetchpriority="high" />
     </a>
   </div>
-  <div class="nav-links">
+  <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
     <a href="#" onclick="showPage('home')" class="active" id="nav-home">Lançamento</a>
     <a href="#" onclick="showPage('sobre')" id="nav-sobre">Sobre</a>
     <a href="#" onclick="showPage('bandas')" id="nav-bandas">Bandas × Eras</a>
     <a href="#" onclick="showPage('livro')" id="nav-livro" class="cta-nav">Peça seu Livro</a>
   </div>
 </nav>
+
+<span id="main" tabindex="-1"></span>
 
 <!-- ===================== HOME / LANÇAMENTO ===================== -->
 <div class="page active" id="page-home">
@@ -1782,17 +1917,46 @@
 </footer>
 
 <script>
+function closeMobileMenu() {
+  var links = document.getElementById('nav-links');
+  var toggle = document.getElementById('nav-toggle');
+  if (links) links.classList.remove('open');
+  if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Abrir menu'); }
+}
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   document.getElementById('nav-' + id)?.classList.add('active');
+  closeMobileMenu();
   window.scrollTo(0, 0);
   if (window.history && location.hash !== '#' + id) {
     history.replaceState(null, '', '#' + id);
   }
   return false;
 }
+
+// ===== Menu mobile (hambúrguer) =====
+(function () {
+  var toggle = document.getElementById('nav-toggle');
+  var links = document.getElementById('nav-links');
+  if (!toggle || !links) return;
+  toggle.addEventListener('click', function () {
+    var isOpen = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    toggle.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  });
+  // Fecha ao clicar fora ou apertar Esc
+  document.addEventListener('click', function (e) {
+    if (links.classList.contains('open') && !links.contains(e.target) && !toggle.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
+})();
 
 // Deep-linking por hash: /#playlist abre a aba Playlist (usado por /playlist-do-livro)
 (function () {
