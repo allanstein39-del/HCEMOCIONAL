@@ -800,16 +800,19 @@
     })();
   </script>
 
-  <!--
-    GA4 (opcional) — descomentar e trocar {{GA4_ID}} quando houver conta.
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{GA4_ID}}"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '{{GA4_ID}}');
-    </script>
-  -->
+  <!-- ========== Google Analytics 4 (GA4) ========== -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JZ5BL8NVNQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JZ5BL8NVNQ');
+    // Helper global: dispara um evento no GA4 se ele estiver carregado.
+    // Uso: hcTrack('nome_do_evento', { chave: 'valor' })
+    window.hcTrack = function (name, params) {
+      try { if (typeof gtag === 'function') gtag('event', name, params || {}); } catch (e) {}
+    };
+  </script>
 
   <!-- ========== DADOS ESTRUTURADOS (JSON-LD) ========== -->
   <script type="application/ld+json">
@@ -1936,6 +1939,13 @@ function showPage(id) {
   if (window.history && location.hash !== '#' + id) {
     history.replaceState(null, '', '#' + id);
   }
+  // GA4: registra a troca de aba como uma visualização de página (SPA)
+  if (window.hcTrack) {
+    hcTrack('page_view', {
+      page_title: 'HC Emocional — ' + id,
+      page_location: location.origin + location.pathname + '#' + id
+    });
+  }
   return false;
 }
 
@@ -1991,12 +2001,41 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     document.querySelectorAll('.spotify-soon').forEach(function (p) { p.remove(); });
   }
 
-  // --- Meta Pixel: InitiateCheckout em qualquer CTA do Catarse ---
+  // --- Rastreamento de cliques (GA4 + Meta Pixel) nos CTAs do Catarse ---
+  // Descobre de qual botão veio o clique pelo parâmetro utm_content do link.
+  function ctaLocal(href) {
+    var m = /utm_content=([^&]+)/.exec(href || '');
+    return m ? decodeURIComponent(m[1]) : 'desconhecido';
+  }
   document.querySelectorAll('a.catarse-cta').forEach(function (a) {
     a.addEventListener('click', function () {
+      var local = ctaLocal(a.getAttribute('href'));
+      // GA4: evento de clique no CTA de compra
+      if (window.hcTrack) hcTrack('click_catarse', { botao: local, texto: (a.textContent || '').trim() });
+      // Meta Pixel: início de checkout
       if (window.fbq) {
         try { fbq('track', 'InitiateCheckout', { content_name: 'Catarse — A História do Hardcore Emocional' }); } catch (e) {}
       }
+    });
+  });
+
+  // --- Rastreamento dos demais botões/links importantes (GA4) ---
+  // Spotify (playlist oficial)
+  document.querySelectorAll('[data-spotify]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.hcTrack) hcTrack('click_spotify', { destino: 'playlist' });
+    });
+  });
+  // Instagram
+  document.querySelectorAll('a[href*="instagram.com"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.hcTrack) hcTrack('click_instagram', {});
+    });
+  });
+  // Download da amostra em PDF
+  document.querySelectorAll('a[href*="amostra"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      if (window.hcTrack) hcTrack('download_amostra', {});
     });
   });
 
@@ -2069,6 +2108,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       fetch(endpoint, { method: 'POST', mode: 'no-cors', body: body })
         .then(function () {
           if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
+          if (window.hcTrack) hcTrack('generate_lead', { origem: 'me-avisa-14' });
           form.reset();
         })
         .catch(function () {
@@ -2087,6 +2127,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       var href = dl.getAttribute('href');
       var name = dl.getAttribute('download') || 'capitulo-01.pdf';
       var original = dl.textContent;
+      if (window.hcTrack) hcTrack('download_capitulo_1', {});
       e.preventDefault();
       dl.textContent = 'Baixando…';
       fetch(href).then(function (r) {
