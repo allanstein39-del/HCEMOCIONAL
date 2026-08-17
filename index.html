@@ -616,6 +616,8 @@
         padding: 40px 0 8px !important;
       }
       .hero-right > div { padding: 0 24px !important; }
+      .hero-right > .frete-faixa { padding: 0 !important; }
+      .hero-right > .frete-faixa > div { font-size: 11px !important; padding: 14px 8px !important; }
       .hero-right img { max-height: 46vh !important; }
     }
 
@@ -900,7 +902,6 @@
       <p class="hero-sub">
         Dos porões apertados de Washington em 1985 a MTV. Uma geração tentando existir.
       </p>
-      <div style="display:inline-flex;align-items:center;gap:8px;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;margin-bottom:24px">★ Frete grátis pro Brasil todo</div>
       <div class="hero-ctas">
         <a class="btn btn-primary catarse-cta" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=hero" target="_blank" rel="noopener">★ Peça seu exemplar</a>
         <a class="btn btn-outline" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>
@@ -914,6 +915,10 @@
       justify-content: center;
       overflow: hidden;
     ">
+      <!-- faixa vertical "frete grátis" ao lado do livro -->
+      <div class="frete-faixa" aria-hidden="false" style="position:absolute;top:0;bottom:0;right:0;z-index:3;display:flex;align-items:center;pointer-events:none">
+        <div style="writing-mode:vertical-rl;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:18px 10px;box-shadow:-6px 8px 24px rgba(0,0,0,0.45)">★ Frete grátis pro Brasil todo</div>
+      </div>
       <!-- capa do livro, nunca cortada -->
       <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:48px;">
         <img
@@ -1092,25 +1097,6 @@
         <a id="dl-cap1" class="btn btn-red" href="/cap-01-a-historia-do-hardcore-emocional.pdf" download="A-Historia-do-Hardcore-Emocional-Cap-01.pdf" rel="noopener">★ Baixar o 1º capítulo (PDF)</a>
       </div>
       <div style="margin-top:14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;opacity:.6">PDF · leitura livre · ~7 MB</div>
-    </div>
-  </section>
-
-  <!-- CAPTURA DE LEADS -->
-  <section class="section section-paper">
-    <div class="container" style="max-width:820px">
-      <div class="eyebrow">Não perde a data</div>
-      <h2 class="section-title" style="color:var(--ink);font-size:clamp(40px,6vw,80px)">Me avisa<br>no dia 14.</h2>
-      <p style="font-size:18px;line-height:1.5;color:var(--ink);margin-top:12px;max-width:560px">Deixa teu e-mail que a gente te chama quando a campanha abrir. Sem spam, prometo — só no dia.</p>
-      <!-- Envio via Google Apps Script: cada cadastro é gravado na planilha (HCEMO.SHEET_ENDPOINT) -->
-      <form id="lead-form" class="lead-form" method="post" action="https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec">
-        <label for="lead-email" style="position:absolute;left:-9999px">Seu e-mail</label>
-        <input id="lead-email" type="email" name="email" placeholder="seu@email.com" required autocomplete="email" />
-        <input type="hidden" name="_origem" value="me-avisa-14" />
-        <!-- Honeypot anti-spam -->
-        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit" class="btn btn-red">★ Quero ser avisado</button>
-      </form>
-      <div id="lead-msg" role="status" aria-live="polite" style="color:var(--ink)"></div>
     </div>
   </section>
 
@@ -2053,45 +2039,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         if (info) info.textContent = pct + '% da meta · ' + backers + ' apoiadores';
       })
       .catch(function () { /* mantém fallback estático já no HTML */ });
-  }
-
-  // --- Captura de lead "Me avisa no dia 14" (grava na planilha via Apps Script) ---
-  var form = document.getElementById('lead-form');
-  if (form) {
-    var endpoint = isSet(C.SHEET_ENDPOINT) ? C.SHEET_ENDPOINT : form.getAttribute('action');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var email = form.querySelector('input[type="email"]');
-      var honey = form.querySelector('input[name="_gotcha"]');
-      var btn = form.querySelector('button[type="submit"]');
-      var msg = document.getElementById('lead-msg');
-      var valid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value);
-      if (!valid) {
-        if (msg) { msg.textContent = 'Põe um e-mail de verdade, vai. 🙃'; msg.style.color = 'var(--red)'; }
-        return;
-      }
-      // Bot preencheu o honeypot: finge que deu certo e não envia.
-      if (honey && honey.value) {
-        if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
-        form.reset();
-        return;
-      }
-      var body = new URLSearchParams({ email: email.value, _origem: 'me-avisa-14' });
-      if (btn) { btn.disabled = true; }
-      if (msg) { msg.textContent = 'Enviando…'; msg.style.color = 'var(--ink)'; }
-      // mode:'no-cors' — o Apps Script não devolve cabeçalho CORS; o POST é
-      // executado mesmo sem conseguirmos ler a resposta (opaque).
-      fetch(endpoint, { method: 'POST', mode: 'no-cors', body: body })
-        .then(function () {
-          if (msg) { msg.textContent = 'Anotado! A gente te chama no dia 14. ★'; msg.style.color = 'var(--acid)'; }
-          if (window.hcTrack) hcTrack('generate_lead', { origem: 'me-avisa-14' });
-          form.reset();
-        })
-        .catch(function () {
-          if (msg) { msg.textContent = 'Deu ruim no envio. Tenta de novo? 🙃'; msg.style.color = 'var(--red)'; }
-        })
-        .finally(function () { if (btn) { btn.disabled = false; } });
-    });
   }
 
   // --- Download forçado do 1º capítulo (PDF) ---
