@@ -616,8 +616,7 @@
         padding: 40px 0 8px !important;
       }
       .hero-right > div { padding: 0 24px !important; }
-      .hero-right > .frete-faixa { padding: 0 !important; }
-      .hero-right > .frete-faixa > div { font-size: 11px !important; padding: 14px 8px !important; }
+      .frete-faixa { font-size: 10px !important; padding: 7px 12px !important; right: -12px !important; }
       .hero-right img { max-height: 46vh !important; }
     }
 
@@ -915,25 +914,26 @@
       justify-content: center;
       overflow: hidden;
     ">
-      <!-- faixa vertical "frete grátis" ao lado do livro -->
-      <div class="frete-faixa" aria-hidden="false" style="position:absolute;top:0;bottom:0;right:0;z-index:3;display:flex;align-items:center;pointer-events:none">
-        <div style="writing-mode:vertical-rl;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:18px 10px;box-shadow:-6px 8px 24px rgba(0,0,0,0.45)">★ Frete grátis pro Brasil todo</div>
-      </div>
-      <!-- capa do livro, nunca cortada -->
+      <!-- capa do livro com faixa "frete grátis" passando por cima -->
       <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:48px;">
-        <img
-          src="/livro.png"
-          alt="Capa do livro A História do Hardcore Emocional"
-          width="1340" height="1830"
-          style="
-            max-width: min(100%, 380px);
-            max-height: min(66vh, 540px);
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(0 24px 48px rgba(0,0,0,0.55));
-          "
-        />
+        <div style="position:relative;display:inline-block">
+          <img
+            src="/livro.png"
+            alt="Capa do livro A História do Hardcore Emocional"
+            width="1340" height="1830"
+            style="
+              display:block;
+              max-width: min(100%, 380px);
+              max-height: min(66vh, 540px);
+              width: auto;
+              height: auto;
+              object-fit: contain;
+              filter: drop-shadow(0 24px 48px rgba(0,0,0,0.55));
+            "
+          />
+          <!-- faixa diagonal passando sobre o lado direito do livro -->
+          <div class="frete-faixa" style="position:absolute;top:46%;right:-18px;transform:translateY(-50%) rotate(-14deg);transform-origin:center;z-index:3;pointer-events:none;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:9px 18px;box-shadow:0 8px 22px rgba(0,0,0,0.55)">★ Frete grátis pro Brasil todo</div>
+        </div>
       </div>
     </div>
   </section>
@@ -1139,7 +1139,6 @@
     <div class="container">
       <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.7;margin-bottom:16px">Tiragem limitada</div>
       <h2 style="font-family:var(--font-head);font-size:clamp(56px,9vw,128px);line-height:.88;text-transform:uppercase">Garanta o seu<br>antes acabar.</h2>
-      <p style="font-size:20px;margin:28px auto;max-width:560px;line-height:1.4">A primeira tiragem é limitada a 2.000 cópias numeradas, com marcador-fanzine e adesivo holográfico.</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px">
         <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('livro')">★ Peça seu exemplar</a>
         <a class="btn catarse-cta" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=footer" target="_blank" rel="noopener">Catarse →</a>
