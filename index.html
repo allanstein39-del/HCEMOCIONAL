@@ -186,7 +186,11 @@
       text-transform: uppercase; opacity: .65; margin-top: 2px;
     }
     .buybar .btn { padding: 13px 18px; font-size: 11px; flex: none; }
-    @media (max-width: 820px) { .buybar { display: flex; } }
+    @media (max-width: 820px) {
+      .buybar { display: flex; }
+      /* Espaço no fim da página para a barra fixa não cobrir o rodapé. */
+      body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
+    }
     @media (prefers-reduced-motion: reduce) {
       .buybar { transition: none; }
     }
@@ -1158,9 +1162,9 @@
       <ul>
         <li>Se você guardou <b>ingresso do Hangar 110</b> numa caixa de sapato.</li>
         <li>Se sabe de cor a letra de <b>Um Minuto Para o Fim do Mundo</b>.</li>
-        <li>Se sua franja cobria um olho e alguém disse que <b>era só uma fase</b>.</li>
+        <li>Se aquelas letras falavam de ansiedade, de casa desandando e de não saber o que ia ser de você — <b>quando ninguém mais falava disso</b>.</li>
         <li>Se você descobriu <b>Fugazi</b> depois do NX Zero e levou um susto.</li>
-        <li>Se comprou ingresso pro <b>I Wanna Be</b> e chorou com estranhos.</li>
+        <li>Se cantou junto com gente que nunca tinha visto e entendeu que <b>aquilo nunca foi só seu</b>.</li>
       </ul>
       <div class="recog-punch">Não era só uma fase.<br>Era uma cena inteira — e ela tem história.</div>
       <div style="display:flex;gap:12px;flex-wrap:wrap">
@@ -1512,8 +1516,8 @@
 
   <!-- Fechamento: esta aba não tinha nenhum caminho de compra. -->
   <section class="closer">
-    <h3>Isso não<br>era frescura.</h3>
-    <p>O livro é o registro de que aquilo tudo tinha nome, tinha origem e tinha razão de ser — de Rites of Spring em 1985 ao Hangar 110. 13 capítulos, tiragem numerada à mão.</p>
+    <h3>Tinha nome.<br>Tinha história.</h3>
+    <p>De Rites of Spring em 1985 ao Hangar 110: um movimento com genealogia, discografia e consequência — reconstruído em quatro anos de pesquisa. 13 capítulos, tiragem numerada à mão.</p>
     <div class="closer-ctas">
       <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=sobre" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
       <a class="btn cta-interno" data-cta="sobre" style="background:transparent;color:var(--black);border-color:var(--black)" href="#" onclick="showPage('livro')">Ver as 3 recompensas →</a>
@@ -1762,7 +1766,7 @@
           <div style="font-family:var(--font-head);font-size:56px;color:#d3f74f;line-height:1">2000s</div>
           <div style="font-family:var(--font-head);font-size:28px;opacity:.5">Pop-Punk · MTV · Warped Tour</div>
         </div>
-        <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:28px">O mainstream abraça o emo — MTV, grandes gravadoras e franja no rosto</div>
+        <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;text-transform:uppercase;opacity:.6;margin-bottom:28px">O mainstream abraça o emo — MTV, grandes gravadoras e turnês de arena</div>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:2px">
           <div class="band-card" style="cursor:default">
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNjAgMTYwIj4KICA8cmVjdCB3aWR0aD0iMTYwIiBoZWlnaHQ9IjE2MCIgZmlsbD0iIzBkMGQwZCIvPgogIDxyZWN0IHg9IjYiIHk9IjYiIHdpZHRoPSIxNDgiIGhlaWdodD0iMTQ4IiBmaWxsPSJub25lIiBzdHJva2U9IiNkM2Y3NGYiIHN0cm9rZS13aWR0aD0iMS41IiBvcGFjaXR5PSIwLjM1Ii8+CiAgPHRleHQgeD0iODAiIHk9Ijc1IiBmb250LWZhbWlseT0iSW1wYWN0LEFyaWFsIEJsYWNrLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjYiIGZvbnQtd2VpZ2h0PSI5MDAiIGZpbGw9IiNkM2Y3NGYiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkdyZWVuPC90ZXh0PgogIDx0ZXh0IHg9IjgwIiB5PSIxMDUiIGZvbnQtZmFtaWx5PSJJbXBhY3QsQXJpYWwgQmxhY2ssc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNiIgZm9udC13ZWlnaHQ9IjkwMCIgZmlsbD0iI2QzZjc0ZiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+RGF5PC90ZXh0PgogIDxsaW5lIHgxPSIxNiIgeTE9IjExNiIgeDI9IjE0NCIgeTI9IjExNiIgc3Ryb2tlPSIjZDNmNzRmIiBzdHJva2Utd2lkdGg9IjEiIG9wYWNpdHk9IjAuNCIvPgogIDx0ZXh0IHg9IjgwIiB5PSIxMzAiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iOSIgZmlsbD0iI2QzZjc0ZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgb3BhY2l0eT0iMC41Ij7imIUg4piFIOKYhTwvdGV4dD4KPC9zdmc+" alt="Green Day logo" style="width:80px;height:80px;object-fit:contain;margin-bottom:10px;filter:brightness(1.1)" width="80" height="80" loading="lazy" decoding="async">
