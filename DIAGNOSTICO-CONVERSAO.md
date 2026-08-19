@@ -23,7 +23,7 @@ seções seguintes, como registro do que foi encontrado.
 | 3 | Barra de progresso zerada **removida**; no lugar, apoiadores + dias restantes via API | 3.2 · 5.2 | ✅ feito |
 | 4 | Selo "Pré-lançamento" → **"Campanha aberta"**; data de entrega alinhada nos 3 cards | 3.1 · 3.4 | ✅ feito |
 | 5 | Imagens em WebP — payload crítico de **3,61 MB → 0,36 MB (−90%)** | 2.2 | ✅ feito |
-| 6 | Meta Pixel | 1.4 | ⏳ **precisa do ID** |
+| 6 | Meta Pixel | 1.4 | ✅ feito |
 | 7 | Captura de e-mail ligada ao `SHEET_ENDPOINT` | 4.5 | ✅ feito |
 | 8 | Capítulo grátis atrás do e-mail; botão em estilo secundário | 4.4 | ✅ feito |
 | 9 | Dobra do mobile reescrita: `h1` de texto, preço, frete, **um único** botão | 2.1 · 2.3 · 4.2 | ✅ feito |
@@ -112,14 +112,18 @@ Capítulos). Nenhum número novo foi inventado para substituir o que saiu.
 
 ### O que ainda depende de você
 
-1. **ID do Meta Pixel** — criar em business.facebook.com → Gerenciador de Eventos, e colar
-   no lugar de `{{META_PIXEL_ID}}`. É o que liga remarketing e otimização de anúncio.
+1. ~~ID do Meta Pixel~~ — **feito em 19/08.** ID `1595358002180924` plugado no bloco já
+   existente no `<head>`; nenhum script duplicado, é o mesmo código oficial do Meta com o
+   placeholder preenchido. `window.fbq` confirmado ativo em teste renderizado.
 2. **Três depoimentos** — não foram inventados de propósito: depoimento fabricado é pior
    que nenhum. Bastam três frases reais com nome e foto.
-3. **Links diretos por recompensa** (achado 4.3, item 16) — para eliminar a etapa de
-   escolher a recompensa duas vezes é preciso o `reward_id` de cada uma, que só aparece
-   na URL ao clicar em "Apoiar" no Catarse. Os CTAs já vão direto à campanha; falta o
-   deep-link por recompensa.
+3. ~~Links diretos por recompensa~~ — **feito em 19/08, parcialmente.** Os 3 botões de
+   "Apoiar via Catarse →" na página "Peça seu Livro" agora vão direto para
+   `catarse.com.br/historia-do-hcemo/rewards` (a lista de recompensas) em vez da home da
+   campanha — poupa a rolagem até lá. Ainda não é um deep-link por `reward_id` individual
+   (isso exigiria o link específico de cada recompensa, que só aparece ao clicar em
+   "Apoiar" em cada uma no painel do Catarse); então a pessoa ainda escolhe a recompensa
+   de novo ao chegar lá, só que a partir da lista, não da home.
 
 ### Sobre a barra de progresso do Catarse
 
