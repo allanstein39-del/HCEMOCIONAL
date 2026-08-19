@@ -87,6 +87,29 @@ diziam dela.
   lá, muda aqui.
 
 
+### Correção de dados factuais — 19/08/2026 (pós-merge)
+
+Depois do merge do PR #32, o autor sinalizou que dois números publicados no site não
+eram confiáveis, e um terceiro estava simplesmente errado:
+
+- **"80 ilustrações originais"** — removido de todo o site. Não era um dado confirmado.
+- **"2.000 cópias numeradas"** — removido de todo o site. Mesma razão. Onde a frase
+  precisava de algo no lugar (a barra de urgência, o eyebrow da página de compra), entrou
+  "numerada à mão" — que não afirma uma quantidade, só a característica física real.
+- **288 → 296 páginas** — o número de páginas estava errado; 296 é o correto. Atualizado
+  em todo o site: hero, stats da home, stats da aba Sobre, JSON-LD (`numberOfPages`),
+  meta description, Open Graph, Twitter Card, as três seções de fechamento (Sobre,
+  Playlist, Bandas × Eras), o value-line da recompensa e a barra de compra fixa.
+
+Também saiu da home a frase **"O livro de Tiago Simão e Allan Stein."**, a pedido do autor
+— a autoria continua visível no rodapé e na própria capa do livro.
+
+**Onde havia um card ou stat dedicado só à contagem de ilustrações**, ele foi removido
+por inteiro em vez de deixado vazio — a grade de 3 colunas da seção "O livro chegou"
+virou 2 colunas, e a grade de 4 itens da aba Sobre virou 3 (Páginas, Anos de pesquisa,
+Capítulos). Nenhum número novo foi inventado para substituir o que saiu.
+
+
 ### O que ainda depende de você
 
 1. **ID do Meta Pixel** — criar em business.facebook.com → Gerenciador de Eventos, e colar
