@@ -11,7 +11,76 @@ de commits. Se algo já tiver sido corrigido em produção sem passar por aqui, 
 
 ---
 
-## 0. O que 1% significa
+## Estado da implementação — 19/08/2026
+
+As correções abaixo já estão no código. O diagnóstico original segue preservado nas
+seções seguintes, como registro do que foi encontrado.
+
+| # | Ação | Achado | Estado |
+|---:|---|---|---|
+| 1 | Prazo de envio real no FAQ: **até 7 dias úteis após a meta bater** (também no JSON-LD) | 3.3 | ✅ feito |
+| 2 | "Apoie no Catarse a partir de 14/08" → bandeira **"Campanha no ar"** | 3.1 | ✅ feito |
+| 3 | Barra de progresso zerada **removida**; no lugar, apoiadores + dias restantes via API | 3.2 · 5.2 | ✅ feito |
+| 4 | Selo "Pré-lançamento" → **"Campanha aberta"**; data de entrega alinhada nos 3 cards | 3.1 · 3.4 | ✅ feito |
+| 5 | Imagens em WebP — payload crítico de **3,61 MB → 0,36 MB (−90%)** | 2.2 | ✅ feito |
+| 6 | Meta Pixel | 1.4 | ⏳ **precisa do ID** |
+| 7 | Captura de e-mail ligada ao `SHEET_ENDPOINT` | 4.5 | ✅ feito |
+| 8 | Capítulo grátis atrás do e-mail; botão em estilo secundário | 4.4 | ✅ feito |
+| 9 | Dobra do mobile reescrita: `h1` de texto, preço, frete, **um único** botão | 2.1 · 2.3 · 4.2 | ✅ feito |
+| 10 | Barra de compra fixa no rodapé do mobile | 2.4 | ✅ feito |
+| 11 | CTA de fechamento em **Sobre**, **Playlist** e **Bandas × Eras** | 4.1 | ✅ feito |
+| 12 | GA4: `page_view` da SPA vira `troca_aba`; CTAs internos rastreados | 1.1 · 1.2 | ✅ feito |
+| 13 | Três depoimentos reais da cena | 3.5 | ⏳ **precisa das frases** |
+| 14 | Construção de valor colada no preço (R$ 0,35/página, frete incluso) | 5.1 | ✅ feito |
+| 15 | Seção de reconhecimento "Você vai se reconhecer" | 5.4 | ✅ feito |
+| 16 | CTA final da home vai **direto ao Catarse** | 4.3 | ✅ parcial |
+| 17 | `title`, meta description e OG na linguagem do público | 5.3 | ✅ feito |
+| 18 | Urgência por prazo (dias para fechar) em vez de tiragem fixa | 5.2 | ✅ feito |
+
+### Ganhos medidos
+
+| Métrica | Antes | Depois |
+|---|---|---|
+| Payload até o primeiro pixel útil (mobile) | 3,61 MB | **0,36 MB** (−90%) |
+| Capa do livro (elemento de LCP) | 3.085 KB PNG | **114 KB** WebP (−96%) |
+| Arquivos de fonte, bloqueando renderização | 11, bloqueantes | **7, assíncronos** |
+| `<h1>` visível no mobile | vazio | **texto real** |
+| CTA acima da dobra (375 / 390 / 1440 px) | — | **sim nos três** |
+| Abas com caminho de compra | 2 de 5 | **5 de 5** |
+| Captura de e-mail | nenhuma | **1 formulário** |
+
+Verificado renderizando a página no Chromium em 375×667, 390×844 e 1440×900: zero erros
+de JavaScript, estrutura HTML balanceada, formulário validando, navegação entre abas
+funcionando. Os únicos recursos que falham no ambiente de teste são GA4, Meta Pixel e
+a API do Catarse — todos bloqueados pelo proxy daqui, todos funcionam em produção.
+
+### O que ainda depende de você
+
+1. **ID do Meta Pixel** — criar em business.facebook.com → Gerenciador de Eventos, e colar
+   no lugar de `{{META_PIXEL_ID}}`. É o que liga remarketing e otimização de anúncio.
+2. **Três depoimentos** — não foram inventados de propósito: depoimento fabricado é pior
+   que nenhum. Bastam três frases reais com nome e foto.
+3. **Links diretos por recompensa** (achado 4.3, item 16) — para eliminar a etapa de
+   escolher a recompensa duas vezes é preciso o `reward_id` de cada uma, que só aparece
+   na URL ao clicar em "Apoiar" no Catarse. Os CTAs já vão direto à campanha; falta o
+   deep-link por recompensa.
+
+### Sobre a barra de progresso do Catarse
+
+**Não é preciso o ID numérico.** O código agora consulta a API pública pelo *permalink*
+(`historia-do-hcemo`), que já está em `window.HCEMO.CATARSE_PERMALINK`. Se um dia quiser
+fixar o ID, ele está em `https://api.catarse.me/project_details?permalink=eq.historia-do-hcemo`
+(campo `project_id`) e tem prioridade sobre o permalink.
+
+Ainda assim, **a barra de percentual foi removida de propósito**. A 8% ela é prova social
+negativa: comunica "92% faltando". No lugar entraram duas coisas que persuadem em qualquer
+patamar — **quantas pessoas já apoiaram** (só aparece a partir de 10 apoiadores) e
+**quantos dias faltam para fechar**. Quando a campanha passar de ~40%, vale voltar com a
+barra: aí o percentual joga a favor.
+
+---
+
+## 0. O que 1% significa (diagnóstico original)
 
 | Referência | Taxa |
 |---|---|
