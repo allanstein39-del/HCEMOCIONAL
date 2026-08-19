@@ -272,6 +272,8 @@
       grid-template-columns: 1fr 1fr;
       position: relative;
       overflow: hidden;
+      max-width: 1280px;
+      margin: 0 auto;
     }
     .hero::after {
       content: '';
@@ -306,11 +308,6 @@
       color: var(--black);
       padding: 0 .06em;
       display: inline-block;
-    }
-    /* Ornamento — no mobile some e o <h1> de texto assume sozinho. */
-    .hero-logo-img {
-      width: 100%; max-width: 210px; height: auto; display: block;
-      margin-bottom: 16px;
     }
     .hero-sub {
       font-size: 20px; line-height: 1.35;
@@ -765,8 +762,10 @@
       .hero-left, .hero-right { min-width: 0; }
       /* No mobile, no lugar do logo de texto o hero mostra a capa do livro:
          escondemos o logo e trazemos a capa (hero-right) para o topo. */
-      .hero-logo-img { display: none; }
       .hero-left { padding: 20px 22px 34px; text-align: left; }
+      /* "PERTENCIMENTO." é mais longo que a headline anterior — reduz o piso
+         do clamp só no mobile pra não estourar a largura da tela. */
+      .hero-h1 { font-size: clamp(30px, 9vw, 44px); }
       .hero-sub { font-size: 17px; margin-top: 14px; }
       .hero-facts { gap: 6px; margin-top: 16px; }
       .hero-facts li { font-size: 10px; padding: 5px 8px; letter-spacing: .08em; }
@@ -1069,12 +1068,7 @@
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-left">
-      <picture>
-        <source srcset="/logo-dark-bg.webp" type="image/webp" />
-        <img src="/logo-dark-bg.png" alt="" aria-hidden="true" class="hero-logo-img" width="537" height="335" />
-      </picture>
-      <!-- h1 de TEXTO: o logo acima é decorativo e some no mobile; o título nunca some. -->
-      <h1 class="hero-h1">Mãe, não era<br><em>só uma fase.</em></h1>
+      <h1 class="hero-h1">Onde o caos encontrou<br><em>pertencimento.</em></h1>
       <p class="hero-sub">
         A história completa da cena emo — do porão de Washington em 1985 ao Hangar 110.
       </p>
