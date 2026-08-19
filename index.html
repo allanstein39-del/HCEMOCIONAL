@@ -2335,16 +2335,13 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     function gravaLead(email) {
       if (!isSet(C.SHEET_ENDPOINT)) return;
       try {
-        fetch(C.SHEET_ENDPOINT, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            email: email,
-            origem: 'capitulo-1',
-            data: new Date().toISOString()
-          })
-        }).catch(function () {});
+        // O Apps Script do outro lado espera application/x-www-form-urlencoded
+        // com o campo "_origem" (mesmo formato do antigo form "Me avisa no dia
+        // 14") — mandar JSON faz e.parameter ficar vazio: e-mail some da
+        // planilha e a coluna Origem cai no valor padrão do script.
+        var body = new URLSearchParams({ email: email, _origem: 'capitulo-1' });
+        fetch(C.SHEET_ENDPOINT, { method: 'POST', mode: 'no-cors', body: body })
+          .catch(function () {});
       } catch (e) {}
     }
 
