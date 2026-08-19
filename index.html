@@ -955,7 +955,12 @@
       // Endpoint do formulário — Google Apps Script grava cada cadastro na planilha.
       SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec",
       // Data/hora do lançamento (America/Sao_Paulo = UTC-3) — já passou; mantida como referência.
-      LAUNCH_ISO: "2026-08-14T00:00:00-03:00"
+      LAUNCH_ISO: "2026-08-14T00:00:00-03:00",
+      // Data/hora em que a campanha fecha no Catarse (America/Sao_Paulo = UTC-3).
+      // Fonte: confirmado pelo autor em 19/08/2026 (faltavam 54 dias). Atualizar
+      // aqui se a data mudar no Catarse — é o valor mostrado no contador da home,
+      // independente da API responder ou não.
+      CAMPAIGN_ENDS_ISO: "2026-10-12T00:00:00-03:00"
     };
   </script>
 
@@ -2267,12 +2272,36 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
   });
 
-  // --- Estado da campanha via API pública do Catarse ---
-  // Consulta por permalink (não precisa do ID numérico). Preenche número de
-  // apoiadores e dias restantes. Se qualquer coisa falhar, os blocos ficam
-  // escondidos: melhor não mostrar nada do que mostrar zero ou um prazo errado.
+  // --- Prazo da campanha: mostrado direto da config, sem depender de API ---
+  // O prazo é o dado mais sensível a ficar errado (é literalmente o que motiva
+  // o clique), então não fica esperando uma chamada de rede que pode falhar —
+  // calcula e mostra na hora, a partir de CAMPAIGN_ENDS_ISO. Atualiza sozinho
+  // a cada minuto pra virar o dia certo sem precisar recarregar a página.
   (function () {
-    var base = 'https://api.catarse.me/project_details?select=project_id,permalink,total_contributions,total_contributors,expires_at,state';
+    if (!isSet(C.CAMPAIGN_ENDS_ISO)) return;
+    var fim = new Date(C.CAMPAIGN_ENDS_ISO).getTime();
+    var wrap = document.getElementById('urg-deadline');
+    var elDays = document.getElementById('cd-days');
+    var elLabel = document.getElementById('cd-label');
+    if (!wrap || !elDays || !elLabel) return;
+
+    function tick() {
+      var dias = Math.ceil((fim - Date.now()) / 86400000);
+      if (dias <= 0) { wrap.hidden = true; return; }
+      elDays.textContent = dias;
+      elLabel.textContent = dias === 1 ? 'dia para a campanha fechar' : 'dias para a campanha fechar';
+      wrap.hidden = false;
+    }
+    tick();
+    setInterval(tick, 60000);
+  })();
+
+  // --- Apoiadores via API pública do Catarse (reforço opcional) ---
+  // Consulta por permalink (não precisa do ID numérico). Só mostra a prova
+  // social quando a API responde com um número que ajuda; se falhar, o bloco
+  // simplesmente continua escondido.
+  (function () {
+    var base = 'https://api.catarse.me/project_details?select=project_id,permalink,total_contributions,total_contributors,state';
     var url = isSet(C.CATARSE_PROJECT_ID)
       ? base + '&project_id=eq.' + encodeURIComponent(C.CATARSE_PROJECT_ID)
       : base + '&permalink=eq.' + encodeURIComponent(C.CATARSE_PERMALINK || '');
@@ -2283,8 +2312,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
       .then(function (data) {
         var d = Array.isArray(data) ? data[0] : data;
         if (!d) return;
-
-        // Apoiadores — só mostramos quando já há um número que ajuda.
         var backers = d.total_contributors || d.total_contributions || 0;
         if (backers >= 10) {
           var proof = document.getElementById('urg-proof');
@@ -2294,22 +2321,8 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
           if (lbl) lbl.textContent = backers === 1 ? 'pessoa já garantiu a sua' : 'pessoas já garantiram a sua';
           if (proof) proof.hidden = false;
         }
-
-        // Dias até o fechamento da campanha.
-        if (d.expires_at) {
-          var diff = new Date(d.expires_at).getTime() - Date.now();
-          var days = Math.ceil(diff / 86400000);
-          if (days > 0) {
-            var wrap = document.getElementById('urg-deadline');
-            var elDays = document.getElementById('cd-days');
-            var elLabel = document.getElementById('cd-label');
-            if (elDays) elDays.textContent = days;
-            if (elLabel) elLabel.textContent = days === 1 ? 'dia para a campanha fechar' : 'dias para a campanha fechar';
-            if (wrap) wrap.hidden = false;
-          }
-        }
       })
-      .catch(function () { /* silêncio: os blocos continuam escondidos */ });
+      .catch(function () { /* silêncio: o bloco continua escondido */ });
   })();
 
   // --- Captura de e-mail + entrega do 1º capítulo ---
