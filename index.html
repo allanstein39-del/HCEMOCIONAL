@@ -106,6 +106,9 @@
       line-height: 1.7; opacity: .72; margin-top: 10px; max-width: 460px;
     }
     .value-line b { color: var(--acid); }
+    /* .order-hero tem fundo acid-green solido — o acid-on-acid do .value-line
+       b ficava invisivel ali (contraste 1:1). Escopo especifico pra esse caso. */
+    .order-hero .value-line b { color: var(--ink); }
 
     /* ========== BLOCO DE FECHAMENTO ==========
        Toda aba precisa terminar com um caminho de compra. Sobre e Bandas × Eras
@@ -162,7 +165,7 @@
       font-family: var(--font-mono); font-size: 13px; letter-spacing: .06em;
       margin-top: 16px; line-height: 1.6; min-height: 1.6em;
     }
-    .lead-msg.ok { color: var(--acid); }
+    .lead-msg.ok { color: var(--ink); }
     .lead-msg.err { color: var(--red); }
 
     /* ========== BARRA DE COMPRA FIXA (MOBILE) ==========
@@ -350,7 +353,7 @@
     .btn-primary:hover { background: transparent; color: var(--acid); }
     .btn-outline { background: transparent; color: var(--paper); border-color: var(--paper); }
     .btn-outline:hover { background: var(--paper); color: var(--black); }
-    .btn-red { background: var(--red); color: var(--white); border-color: var(--red); }
+    .btn-red { background: #c52a16; color: var(--white); border-color: #c52a16; }
     .btn-red:hover { background: transparent; color: var(--red); }
 
     .hero-right {
@@ -421,7 +424,7 @@
     }
     .sobre-text { font-size: 19px; line-height: 1.55; }
     .sobre-text p { margin-bottom: 20px; }
-    .sobre-text em { font-style: italic; color: var(--red); }
+    .sobre-text em { font-style: italic; color: #c52a16; }
     .facts-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
       margin-top: 20px;
@@ -1283,10 +1286,10 @@
   </section>
 
   <!-- DOWNLOAD 1º CAPÍTULO -->
-  <section class="section section-dark" id="capitulo-1">
+  <section class="section section-paper" id="capitulo-1">
     <div class="container" style="max-width:820px;text-align:center">
-      <div class="eyebrow" style="color:var(--acid)">Prova de leitura</div>
-      <h2 class="section-title">Leia o<br>1º capítulo.</h2>
+      <div class="eyebrow">Prova de leitura</div>
+      <h2 class="section-title" style="color:var(--ink)">Leia o<br>1º capítulo.</h2>
       <p style="font-size:18px;line-height:1.5;opacity:.85;margin:16px auto 0;max-width:560px">Deixe seu e-mail e o Capítulo 01 — <em>A história do hardcore emocional</em> — baixa na hora. Sinta o tom do livro antes de garantir o seu.</p>
 
       <form class="lead-form" id="cap-form" novalidate>
@@ -1300,7 +1303,7 @@
       <!-- Link direto: só é revelado depois do cadastro (e serve de escape se o JS falhar). -->
       <noscript>
         <div style="margin-top:20px">
-          <a class="btn btn-outline" href="/cap-01-a-historia-do-hardcore-emocional.pdf" rel="noopener">★ Baixar o 1º capítulo (PDF)</a>
+          <a class="btn" style="background:transparent;color:var(--ink);border-color:var(--ink)" href="/cap-01-a-historia-do-hardcore-emocional.pdf" rel="noopener">★ Baixar o 1º capítulo (PDF)</a>
         </div>
       </noscript>
       <a id="dl-cap1" hidden href="/cap-01-a-historia-do-hardcore-emocional.pdf" download="A-Historia-do-Hardcore-Emocional-Cap-01.pdf" rel="noopener">Baixar o 1º capítulo</a>
@@ -1391,7 +1394,7 @@
           </div>
           <blockquote class="quote-block" style="border-left-color:var(--red)">
             <p style="color:var(--ink)">"Longe do senso comum sobre o emo ser apenas uma frescura/choradeira, além de comentários bem homofóbicos, o gênero na verdade conversava sobre depressão, ansiedade, sexualidade, bullying, separação dos pais e a completa insegurança em relação ao futuro."</p>
-            <cite style="color:var(--red)">— Tiago Simão, Prefácio</cite>
+            <cite style="color:#c52a16;opacity:1">— Tiago Simão, Prefácio</cite>
           </blockquote>
         </div>
         <div>
