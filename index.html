@@ -1055,7 +1055,7 @@
     <a href="#" onclick="showPage('home')" aria-label="A História do Hardcore Emocional — início">
       <picture>
         <source srcset="/logo-dark-bg.webp" type="image/webp" />
-        <img src="/logo-dark-bg.png" alt="A História do Hardcore Emocional" width="537" height="335" />
+        <img src="/logo-dark-bg.png" alt="A História do Hardcore Emocional" width="192" height="120" fetchpriority="high" decoding="async" />
       </picture>
     </a>
   </div>
@@ -1107,7 +1107,7 @@
           <img
             src="/livro-800.jpg"
             alt="Capa do livro A História do Hardcore Emocional"
-            width="800" height="1093"
+            width="760" height="1038"
             fetchpriority="high"
             style="
               display:block;
@@ -1152,6 +1152,50 @@
       <div class="urg-safe">Tudo-ou-nada: se a meta não for atingida, ninguém é cobrado e o valor volta integral.</div>
     </div>
   </section>
+
+  <!-- RECOMPENSAS NA HOME -----------------------------------------------
+       97% dos usuarios nunca trocavam de aba, entao nunca viam os tiers.
+       Versao curta aqui; a aba "Peça seu Livro" segue com o detalhe completo. -->
+  <div class="catarse-section" id="tiers-home">
+    <div class="container">
+      <div class="eyebrow" style="color:var(--acid)">Escolha sua recompensa</div>
+      <h2 style="font-family:var(--font-head);font-size:clamp(34px,4.4vw,60px);text-transform:uppercase;margin-bottom:10px">Três formas de garantir.</h2>
+      <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:32px;font-family:var(--font-mono);letter-spacing:.02em">Frete grátis pro Brasil todo. Tudo-ou-nada: se a meta não bater, ninguém é cobrado.</p>
+      <div class="catarse-grid">
+
+        <div class="product-card">
+          <div class="product-badge">Entrada</div>
+          <h3>Emo é gente triste, né?</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">O livro físico, 1ª edição numerada, direto na sua casa.</p>
+          <div class="price">R$ 99,00</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Livro + marca-página · Frete grátis</div>
+          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-entrada" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+        </div>
+
+        <div class="product-card">
+          <div class="product-badge">Mais popular</div>
+          <h3>Já ouviu Dashboard Confessional?</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">Livro físico + adesivos exclusivos da campanha.</p>
+          <div class="price">R$ 147,00</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Livro + adesivos + marca-página · Frete grátis</div>
+          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-popular" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+        </div>
+
+        <div class="product-card">
+          <div class="product-badge">Kit completo</div>
+          <h3>Sunny Day Real Estate é emo raiz</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">Seu nome impresso nos agradecimentos — e mais 6 itens.</p>
+          <div class="price">R$ 299,97</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Nome no livro + pôster + palheta + playlist secreta · Frete grátis</div>
+          <a class="btn btn-red catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-completo" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+        </div>
+
+      </div>
+      <p style="margin-top:26px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;opacity:.65">
+        <a class="cta-interno" data-cta="home-ver-recompensas" href="#" onclick="showPage('livro')" style="color:var(--acid);text-decoration:underline">Ver tudo que vem em cada recompensa →</a>
+      </p>
+    </div>
+  </div>
 
   <!-- RECONHECIMENTO — "isso é pra você que…" -->
   <section class="recog">
@@ -1996,7 +2040,7 @@
         <div class="order-book-img">
           <picture>
             <source srcset="/livro.webp" type="image/webp" />
-            <img src="/livro-800.jpg" alt="Capa do livro A História do Hardcore Emocional" width="800" height="1093" loading="lazy" decoding="async" style="max-width:100%;filter:drop-shadow(0 18px 40px rgba(0,0,0,.4))" />
+            <img src="/livro-800.jpg" alt="Capa do livro A História do Hardcore Emocional" width="760" height="1038" loading="lazy" decoding="async" style="max-width:100%;filter:drop-shadow(0 18px 40px rgba(0,0,0,.4))" />
           </picture>
         </div>
       </div>
@@ -2418,7 +2462,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     var visivel = false;
     function atualiza() {
       var menuAberto = links && links.classList.contains('open');
-      var passouDaDobra = window.scrollY > window.innerHeight * 0.55;
+      var passouDaDobra = window.scrollY > window.innerHeight * 0.25;
       var mostrar = passouDaDobra && !menuAberto;
       if (mostrar === visivel) return;
       visivel = mostrar;
