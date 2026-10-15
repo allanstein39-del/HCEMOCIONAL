@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>A História do Hardcore Emocional — o livro sobre a cena emo</title>
-  <meta name="description" content="O livro que conta a história completa do emo e do emocore — de Washington 1985 ao Hangar 110. Fugazi, Sunny Day Real Estate, My Chemical Romance, CPM 22, Fresno, NX Zero. 296 páginas, tiragem numerada. A partir de R$ 99 com frete grátis." />
+  <title>A História do Hardcore Emocional — obrigado a quem apoiou</title>
+  <meta name="description" content="O livro que conta a história completa do emo e do emocore — de Washington 1985 ao Hangar 110. Fugazi, Sunny Day Real Estate, My Chemical Romance, CPM 22, Fresno, NX Zero. 296 páginas, tiragem numerada, financiado coletivamente por quem viveu a cena. Obrigado a cada apoiador." />
   <link rel="canonical" href="https://hcemocional.com.br/" />
 
   <!-- Verificação de domínio — Meta Business Manager -->
@@ -26,8 +26,8 @@
   <!-- Open Graph (WhatsApp, Facebook, etc.) -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="A História do Hardcore Emocional" />
-  <meta property="og:title" content="Mãe, não era só uma fase." />
-  <meta property="og:description" content="A história completa da cena emo — de Washington 1985 ao Hangar 110. 296 páginas, tiragem numerada. A partir de R$ 99, frete grátis." />
+  <meta property="og:title" content="Obrigado. Não era só uma fase." />
+  <meta property="og:description" content="A história completa da cena emo — de Washington 1985 ao Hangar 110. 296 páginas, tiragem numerada — feito por quem apoiou. Obrigado." />
   <meta property="og:image" content="https://hcemocional.com.br/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -36,8 +36,8 @@
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Mãe, não era só uma fase." />
-  <meta name="twitter:description" content="A história completa da cena emo — de Washington 1985 ao Hangar 110. 296 páginas, tiragem numerada. A partir de R$ 99, frete grátis." />
+  <meta name="twitter:title" content="Obrigado. Não era só uma fase." />
+  <meta name="twitter:description" content="A história completa da cena emo — de Washington 1985 ao Hangar 110. 296 páginas, tiragem numerada — feito por quem apoiou. Obrigado." />
   <meta name="twitter:image" content="https://hcemocional.com.br/og-image.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -167,39 +167,6 @@
     }
     .lead-msg.ok { color: var(--ink); }
     .lead-msg.err { color: var(--red); }
-
-    /* ========== BARRA DE COMPRA FIXA (MOBILE) ==========
-       No mobile toda a .nav-links some dentro do hambúrguer, levando junto o
-       único CTA sempre visível. Esta barra devolve a âncora de compra. */
-    .buybar {
-      position: fixed; left: 0; right: 0; bottom: 0; z-index: 120;
-      display: none;
-      align-items: center; justify-content: space-between; gap: 12px;
-      background: var(--black);
-      border-top: 2px solid var(--acid);
-      padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
-      transform: translateY(110%);
-      transition: transform .22s ease;
-    }
-    .buybar.show { transform: translateY(0); }
-    .buybar-info { min-width: 0; }
-    .buybar-price {
-      font-family: var(--font-head); font-size: 26px; line-height: 1;
-      color: var(--acid);
-    }
-    .buybar-note {
-      font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .12em;
-      text-transform: uppercase; opacity: .65; margin-top: 2px;
-    }
-    .buybar .btn { padding: 13px 18px; font-size: 11px; flex: none; }
-    @media (max-width: 820px) {
-      .buybar { display: flex; }
-      /* Espaço no fim da página para a barra fixa não cobrir o rodapé. */
-      body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .buybar { transition: none; }
-    }
 
     /* ========== NAV ========== */
     nav {
@@ -843,41 +810,21 @@
     }
     .reveal.visible { opacity: 1; transform: none; }
 
-    /* ========== COUNTDOWN / URGÊNCIA ========== */
+    /* ========== FAIXA DE AGRADECIMENTO ========== */
     .urgency-bar {
       background: var(--black); color: var(--paper);
-      border-top: 2px solid var(--red); border-bottom: 2px solid var(--red);
+      border-top: 2px solid var(--acid); border-bottom: 2px solid var(--acid);
       padding: 28px 20px;
       display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
       gap: 12px 32px; text-align: center;
     }
-    .cd-number {
-      font-family: var(--font-head); font-size: clamp(56px, 12vw, 96px);
-      line-height: .9; color: var(--acid);
-    }
-    .cd-label {
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: .2em;
-      text-transform: uppercase; opacity: .8;
-    }
-    .cd-scarcity {
-      font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--red); font-weight: 700;
-    }
-    /* Bandeira de estado da campanha — substitui a barra de progresso.
-       Barra de % vazia é prova social negativa: enquanto a meta está baixa,
-       o que persuade é contagem de apoiadores + prazo, não percentual. */
+    /* Bandeira de estado — campanha encerrada, faixa de agradecimento. */
     .urg-flag {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--font-mono); font-size: 12px; font-weight: 700;
       letter-spacing: .2em; text-transform: uppercase;
       color: var(--acid);
     }
-    .urg-flag::before {
-      content: ''; width: 9px; height: 9px; border-radius: 50%;
-      background: var(--acid); flex: none;
-      animation: urgpulse 2s ease-in-out infinite;
-    }
-    @keyframes urgpulse { 0%,100% { opacity: 1 } 50% { opacity: .3 } }
     .urg-col { display: flex; flex-direction: column; align-items: center; gap: 10px; }
     .urg-proof {
       font-family: var(--font-mono); font-size: 13px; letter-spacing: .1em;
@@ -885,8 +832,8 @@
     }
     .urg-proof b { color: var(--acid); font-size: 20px; font-weight: 700; }
     .urg-safe {
-      font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em;
-      opacity: .62; max-width: 380px; line-height: 1.6; text-transform: none;
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em;
+      opacity: .75; max-width: 520px; line-height: 1.6; text-transform: none;
     }
 
     /* ========== FAQ ========== */
@@ -943,24 +890,15 @@
   -->
   <script>
     window.HCEMO = {
-      // URL canônica da campanha no Catarse
-      CATARSE_URL: "https://www.catarse.me/historia-do-hcemo",
-      // Permalink do projeto no Catarse — é o que aparece na URL da campanha.
-      // A API pública é consultada por ele, então NÃO é preciso o ID numérico.
+      // Campanha no Catarse ENCERRADA. O permalink fica só pra mostrar quantas
+      // pessoas apoiaram (API pública) — não existe mais link de compra no site.
       CATARSE_PERMALINK: "historia-do-hcemo",
       // Opcional: se um dia quiser fixar o ID numérico, preencha aqui que ele tem prioridade.
       CATARSE_PROJECT_ID: "",
       // URL oficial da playlist do livro no Spotify
       SPOTIFY_PLAYLIST_URL: "https://open.spotify.com/playlist/2Ptuj7Xl2ZandGugEzalvz",
       // Endpoint do formulário — Google Apps Script grava cada cadastro na planilha.
-      SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec",
-      // Data/hora do lançamento (America/Sao_Paulo = UTC-3) — já passou; mantida como referência.
-      LAUNCH_ISO: "2026-08-14T00:00:00-03:00",
-      // Data/hora em que a campanha fecha no Catarse (America/Sao_Paulo = UTC-3).
-      // Fonte: confirmado pelo autor em 19/08/2026 (faltavam 54 dias). Atualizar
-      // aqui se a data mudar no Catarse — é o valor mostrado no contador da home,
-      // independente da API responder ou não.
-      CAMPAIGN_ENDS_ISO: "2026-10-12T00:00:00-03:00"
+      SHEET_ENDPOINT: "https://script.google.com/macros/s/AKfycbzkfM3C5iHXhqANNxUnP1offtuFgv8vAD3ecw7HZ0MCW0JTTlKukoxn1G_e4euJl3YF/exec"
     };
   </script>
 
@@ -1016,30 +954,11 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "A História do Hardcore Emocional — livro",
-    "image": "https://hcemocional.com.br/og-image.jpg",
-    "description": "Livro físico 16x23cm, P&B, 296 páginas, edição numerada à mão. Financiado via Catarse.",
-    "brand": { "@type": "Brand", "name": "Hardcore Emocional" },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.catarse.me/historia-do-hcemo",
-      "priceCurrency": "BRL",
-      "availability": "https://schema.org/PreOrder"
-    }
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Quando o livro chega na minha casa?", "acceptedAnswer": { "@type": "Answer", "text": "O envio acontece em até 7 dias úteis depois que a meta da campanha for batida. Você recebe o código de rastreio por e-mail. Frete grátis para todo o Brasil." } },
-      { "@type": "Question", "name": "E se a meta não bater?", "acceptedAnswer": { "@type": "Answer", "text": "O financiamento no Catarse é tudo-ou-nada: se a meta não for atingida, ninguém é cobrado e o valor volta integral para quem apoiou." } },
-      { "@type": "Question", "name": "Quanto custa o frete?", "acceptedAnswer": { "@type": "Answer", "text": "O frete é grátis para todo o Brasil. É só escolher sua recompensa no Catarse." } },
-      { "@type": "Question", "name": "Tem versão digital/PDF?", "acceptedAnswer": { "@type": "Answer", "text": "Não haverá versão digital/PDF do livro completo — o projeto é um objeto físico impresso. Apenas o 1º capítulo está disponível para download gratuito, como amostra." } },
-      { "@type": "Question", "name": "O que exatamente vem em cada recompensa?", "acceptedAnswer": { "@type": "Answer", "text": "São três recompensas: Emo é gente triste, né? (R$ 99 — livro + marca-página); Já ouviu Dashboard Confessional? (R$ 147 — livro + adesivos exclusivos + marca-página); e Sunny Day Real Estate é emo raiz (R$ 299,97 — livro + seu nome nos agradecimentos + palheta personalizada + adesivos + pôster exclusivo + livreto das bandas + playlist secreta no Spotify + marca-página). Frete grátis para todo o Brasil." } },
-      { "@type": "Question", "name": "Por que Catarse e não loja normal?", "acceptedAnswer": { "@type": "Answer", "text": "Porque essa cena sempre foi DIY: direto entre quem faz e quem apoia. O financiamento coletivo viabiliza uma tiragem independente e numerada." } }
+      { "@type": "Question", "name": "A campanha acabou. Ainda dá pra comprar o livro?", "acceptedAnswer": { "@type": "Answer", "text": "Por enquanto, não. A campanha no Catarse foi encerrada e o livro não está à venda em nenhum outro lugar. Se isso mudar, o aviso sai primeiro no Instagram @hcemocional." } },
+      { "@type": "Question", "name": "Apoiei. Como acompanho o envio do meu livro?", "acceptedAnswer": { "@type": "Answer", "text": "As novidades de produção e envio chegam pelo e-mail cadastrado no Catarse e pelo Instagram @hcemocional. O código de rastreio é enviado por e-mail." } },
+      { "@type": "Question", "name": "Tem versão digital/PDF?", "acceptedAnswer": { "@type": "Answer", "text": "Não haverá versão digital/PDF do livro completo — o projeto é um objeto físico impresso. Apenas o 1º capítulo está disponível para download gratuito, como amostra." } }
     ]
   }
   </script>
@@ -1063,10 +982,11 @@
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links" id="nav-links">
-    <a href="#" onclick="showPage('home')" class="active" id="nav-home">Lançamento</a>
+    <a href="#" onclick="showPage('home')" class="active" id="nav-home">Início</a>
     <a href="#" onclick="showPage('sobre')" id="nav-sobre">Sobre</a>
     <a href="#" onclick="showPage('bandas')" id="nav-bandas">Bandas × Eras</a>
-    <a href="#" onclick="showPage('livro')" id="nav-livro" class="cta-nav">Peça seu Livro</a>
+    <a href="#" onclick="showPage('playlist')" id="nav-playlist">Playlist</a>
+    <a href="#" onclick="showPage('obrigado')" id="nav-obrigado" class="cta-nav">Obrigado</a>
   </div>
 </nav>
 
@@ -1076,19 +996,20 @@
 <div class="page active" id="page-home">
   <section class="hero">
     <div class="hero-left">
-      <h1 class="hero-h1">Onde o caos encontrou<br><em>pertencimento.</em></h1>
+      <h1 class="hero-h1">Obrigado por fazer<br><em>isso existir.</em></h1>
       <p class="hero-sub">
-        A história completa da cena emo — do porão de Washington em 1985 ao Hangar 110.
+        A campanha terminou. A história completa da cena emo — do porão de Washington em 1985 ao Hangar 110 — vai pro papel porque você apoiou.
       </p>
       <ul class="hero-facts">
         <li><b>296</b> páginas</li>
         <li><b>13</b> capítulos</li>
       </ul>
       <div class="hero-ctas">
-        <a class="btn btn-primary catarse-cta" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=hero" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
+        <a class="btn btn-primary" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+        <a class="btn btn-outline" href="#capitulo-1">Ler o 1º capítulo</a>
       </div>
       <p class="hero-reassure">
-        Frete grátis pro Brasil todo · Você finaliza no Catarse, leva 2 minutos
+        Apoiou? Novidades de produção e envio chegam pelo seu e-mail do Catarse e pelo @hcemocional
       </p>
     </div>
         <div class="hero-right" style="
@@ -1099,7 +1020,7 @@
       justify-content: center;
       overflow: hidden;
     ">
-      <!-- capa do livro com faixa "frete grátis" passando por cima -->
+      <!-- capa do livro com faixa de agradecimento passando por cima -->
       <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;width:100%;height:100%;padding:48px;">
         <div style="position:relative;display:inline-block">
           <picture>
@@ -1121,7 +1042,7 @@
           />
           </picture>
           <!-- faixa diagonal passando sobre o lado direito do livro -->
-          <div class="frete-faixa" style="position:absolute;top:46%;right:-18px;transform:translateY(-50%) rotate(-14deg);transform-origin:center;z-index:3;pointer-events:none;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:9px 18px;box-shadow:0 8px 22px rgba(0,0,0,0.55)">★ Frete grátis pro Brasil todo</div>
+          <div class="frete-faixa" style="position:absolute;top:46%;right:-18px;transform:translateY(-50%) rotate(-14deg);transform-origin:center;z-index:3;pointer-events:none;background:var(--acid);color:var(--black);font-family:var(--font-mono);font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;padding:9px 18px;box-shadow:0 8px 22px rgba(0,0,0,0.55)">★ Financiado por quem viveu a cena</div>
         </div>
       </div>
     </div>
@@ -1133,66 +1054,47 @@
     </span>
   </div>
 
-  <!-- COUNTDOWN + ESCASSEZ -->
-  <section class="urgency-bar" aria-label="Estado da campanha">
-    <!-- Contagem regressiva para o FECHAMENTO da campanha. Fica escondida até a
-         API do Catarse devolver a data — nunca mostramos um prazo que não sabemos. -->
-    <div class="urg-col" id="urg-deadline" hidden>
-      <div class="cd-number"><span id="cd-days">—</span></div>
-      <div class="cd-label" id="cd-label">dias para a campanha fechar</div>
-    </div>
+  <!-- FAIXA DE AGRADECIMENTO -->
+  <section class="urgency-bar" aria-label="Campanha encerrada">
     <div class="urg-col">
-      <div class="urg-flag">Campanha no ar</div>
-      <!-- Prova social por contagem de apoiadores (via API). Escondida se a API falhar. -->
+      <div class="urg-flag">★ Campanha encerrada</div>
+      <!-- Total de apoiadores (via API pública do Catarse). Escondido se a API falhar. -->
       <div class="urg-proof" id="urg-proof" hidden>
-        <b id="urg-backers">—</b> <span id="urg-backers-label">pessoas já garantiram a sua</span>
+        <b id="urg-backers">—</b> <span id="urg-backers-label">pessoas fizeram esse livro existir</span>
       </div>
-      <div class="cd-scarcity">Tiragem limitada — numerada à mão</div>
-      <a class="btn btn-red catarse-cta" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=urgencia" target="_blank" rel="noopener" style="margin-top:4px">★ Garantir no Catarse — R$ 99</a>
-      <div class="urg-safe">Tudo-ou-nada: se a meta não for atingida, ninguém é cobrado e o valor volta integral.</div>
+      <div class="urg-safe">Cada apoio virou página impressa. Do fundo do coração (e do porão): obrigado.</div>
     </div>
   </section>
 
-  <!-- RECOMPENSAS NA HOME -----------------------------------------------
-       97% dos usuarios nunca trocavam de aba, entao nunca viam os tiers.
-       Versao curta aqui; a aba "Peça seu Livro" segue com o detalhe completo. -->
-  <div class="catarse-section" id="tiers-home">
+  <!-- O QUE ACONTECE AGORA -->
+  <div class="catarse-section" id="proximos-passos">
     <div class="container">
-      <div class="eyebrow" style="color:var(--acid)">Escolha sua recompensa</div>
-      <h2 style="font-family:var(--font-head);font-size:clamp(34px,4.4vw,60px);text-transform:uppercase;margin-bottom:10px">Três formas de garantir.</h2>
-      <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:32px;font-family:var(--font-mono);letter-spacing:.02em">Frete grátis pro Brasil todo. Tudo-ou-nada: se a meta não bater, ninguém é cobrado.</p>
+      <div class="eyebrow" style="color:var(--acid)">Pra quem apoiou</div>
+      <h2 style="font-family:var(--font-head);font-size:clamp(34px,4.4vw,60px);text-transform:uppercase;margin-bottom:10px">E agora?</h2>
+      <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:32px;font-family:var(--font-mono);letter-spacing:.02em">O caminho do seu exemplar até a sua casa. As atualizações chegam pelo e-mail cadastrado no Catarse e pelo @hcemocional.</p>
       <div class="catarse-grid">
 
         <div class="product-card">
-          <div class="product-badge">Entrada</div>
-          <h3>Emo é gente triste, né?</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">O livro físico, 1ª edição numerada, direto na sua casa.</p>
-          <div class="price">R$ 99,00</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Livro + marca-página · Frete grátis</div>
-          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-entrada" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+          <div class="product-badge">01</div>
+          <h3>Gráfica</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">O livro vai pra impressão: 296 páginas, 16×23 cm, miolo P&amp;B com a arte colagem punk zine.</p>
         </div>
 
         <div class="product-card">
-          <div class="product-badge">Mais popular</div>
-          <h3>Já ouviu Dashboard Confessional?</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">Livro físico + adesivos exclusivos da campanha.</p>
-          <div class="price">R$ 147,00</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Livro + adesivos + marca-página · Frete grátis</div>
-          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-popular" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+          <div class="product-badge">02</div>
+          <h3>Numeração à mão</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">Cada exemplar da 1ª edição é numerado à mão e separado junto com as recompensas de cada apoio.</p>
         </div>
 
         <div class="product-card">
-          <div class="product-badge">Kit completo</div>
-          <h3>Sunny Day Real Estate é emo raiz</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">Seu nome impresso nos agradecimentos — e mais 6 itens.</p>
-          <div class="price">R$ 299,97</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">Nome no livro + pôster + palheta + playlist secreta · Frete grátis</div>
-          <a class="btn btn-red catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=home-tier-completo" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
+          <div class="product-badge">03</div>
+          <h3>Envio</h3>
+          <p style="font-size:15px;opacity:.7;line-height:1.5">Frete grátis como combinado. O código de rastreio chega por e-mail assim que o pacote sair.</p>
         </div>
 
       </div>
       <p style="margin-top:26px;font-family:var(--font-mono);font-size:12px;letter-spacing:.08em;opacity:.65">
-        <a class="cta-interno" data-cta="home-ver-recompensas" href="#" onclick="showPage('livro')" style="color:var(--acid);text-decoration:underline">Ver tudo que vem em cada recompensa →</a>
+        Dúvida sobre o seu apoio ou mudou de endereço? Chama no <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener" style="color:var(--acid);text-decoration:underline">@hcemocional</a>.
       </p>
     </div>
   </div>
@@ -1200,8 +1102,8 @@
   <!-- RECONHECIMENTO — "isso é pra você que…" -->
   <section class="recog">
     <div class="recog-inner">
-      <div class="eyebrow" style="color:var(--acid)">Pra quem é</div>
-      <h2>Você vai<br>se reconhecer.</h2>
+      <div class="eyebrow" style="color:var(--acid)">Pra quem apoiou</div>
+      <h2>Você se<br>reconheceu.</h2>
       <ul>
         <li>Se você guardou <b>ingresso do Hangar 110</b> numa caixa de sapato.</li>
         <li>Se sabe de cor a letra de <b>Um Minuto Para o Fim do Mundo</b>.</li>
@@ -1209,19 +1111,15 @@
         <li>Se você descobriu <b>Fugazi</b> depois do NX Zero e levou um susto.</li>
         <li>Se cantou junto com gente que nunca tinha visto e entendeu que <b>aquilo nunca foi só seu</b>.</li>
       </ul>
-      <div class="recog-punch">Não era só uma fase.<br>Era uma cena inteira — e ela tem história.</div>
-      <div style="display:flex;gap:12px;flex-wrap:wrap">
-        <a class="btn btn-primary catarse-cta" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=reconhecimento" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
-      </div>
-      <div class="value-line">296 páginas · capa numerada à mão · <b>frete grátis pro Brasil todo</b></div>
+      <div class="recog-punch">Não era só uma fase.<br>Era uma cena inteira — e, graças a você, agora ela é livro.</div>
     </div>
   </section>
 
   <!-- LAUNCH INFO -->
   <section class="section section-paper">
     <div class="container">
-      <div class="eyebrow">Campanha aberta · Catarse</div>
-      <h2 class="section-title">O&nbsp;livro chegou.</h2>
+      <div class="eyebrow">Financiado coletivamente</div>
+      <h2 class="section-title">O&nbsp;livro existe.</h2>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:48px">
         <div style="background:var(--black);color:var(--paper);padding:40px 32px">
           <div style="font-family:var(--font-head);font-size:80px;color:var(--acid);line-height:1">296</div>
@@ -1257,7 +1155,7 @@
           <p style="font-size:18px;line-height:1.5;margin-top:20px;color:var(--ink)">Em 1985, em Washington D.C., um pequeno grupo de garotos cansados da agressividade do hardcore decidiu cantar sobre o que sentia. Chamaram aquilo, meio a contragosto, de <em>emocore</em>.</p>
           <p style="font-size:18px;line-height:1.5;margin-top:16px;color:var(--ink)">Vinte anos depois, milhões de adolescentes brasileiros se enxergavam em bandas cuja origem eles jamais tinham ouvido falar. Este livro tenta entender o que aconteceu no meio do caminho.</p>
           <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap">
-            <a class="btn btn-primary cta-interno" data-cta="meio-da-home" href="#" onclick="showPage('livro')">Ver as recompensas — a partir de R$ 99</a>
+            <a class="btn btn-primary" href="#" onclick="showPage('playlist')">★ Ouvir a playlist do livro</a>
             <a class="btn" style="background:transparent;color:var(--ink);border-color:var(--ink)" href="#" onclick="showPage('sobre')">Saiba mais →</a>
           </div>
         </div>
@@ -1339,14 +1237,14 @@
     <div class="container" style="max-width:820px;text-align:center">
       <div class="eyebrow">Prova de leitura</div>
       <h2 class="section-title" style="color:var(--ink)">Leia o<br>1º capítulo.</h2>
-      <p style="font-size:18px;line-height:1.5;opacity:.85;margin:16px auto 0;max-width:560px">Deixe seu e-mail e o Capítulo 01 — <em>A história do hardcore emocional</em> — baixa na hora. Sinta o tom do livro antes de garantir o seu.</p>
+      <p style="font-size:18px;line-height:1.5;opacity:.85;margin:16px auto 0;max-width:560px">Deixe seu e-mail e o Capítulo 01 — <em>A história do hardcore emocional</em> — baixa na hora. Sinta o tom do livro enquanto o seu exemplar não chega.</p>
 
       <form class="lead-form" id="cap-form" novalidate>
         <label class="sr-only" for="cap-email">Seu e-mail</label>
         <input type="email" id="cap-email" name="email" placeholder="seu@email.com" autocomplete="email" required />
         <button type="submit" class="btn btn-primary" id="cap-submit">★ Baixar o capítulo</button>
       </form>
-      <p class="lead-note">Mandamos o capítulo agora e um único aviso quando faltarem 48h pro fim da campanha. Nada além disso.</p>
+      <p class="lead-note">Mandamos o capítulo agora. Seu e-mail só recebe novidade importante sobre o livro — nada além disso.</p>
       <p class="lead-msg" id="cap-msg" role="status" aria-live="polite"></p>
 
       <!-- Link direto: só é revelado depois do cadastro (e serve de escape se o JS falhar). -->
@@ -1367,28 +1265,24 @@
       <h2 class="section-title">FAQ.</h2>
       <div class="faq-list">
         <details class="faq-item">
-          <summary>Quando o livro chega na minha casa?</summary>
-          <div class="faq-body">Assim que a meta for batida, o envio acontece em <strong>até 7 dias úteis</strong>. A sequência é essa: a meta bate → a tiragem é liberada → seu exemplar sai pelos Correios com frete grátis. Você recebe o código de rastreio por e-mail.</div>
+          <summary>A campanha acabou. Ainda dá pra comprar o livro?</summary>
+          <div class="faq-body">Por enquanto, não. A campanha no Catarse foi encerrada e <strong>o livro não está à venda em nenhum outro lugar</strong>. Se isso mudar, o aviso sai primeiro no Instagram <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener" style="color:var(--acid)">@hcemocional</a>.</div>
         </details>
         <details class="faq-item">
-          <summary>E se a meta não bater?</summary>
-          <div class="faq-body">Financiamento coletivo no Catarse é tudo-ou-nada: se a meta não for atingida, ninguém é cobrado e o valor volta integral pra quem apoiou. Ou seja: apoiar é seguro — você só paga de fato se o livro acontecer.</div>
+          <summary>Apoiei. Como acompanho o envio do meu livro?</summary>
+          <div class="faq-body">As novidades de produção e envio chegam pelo <strong>e-mail cadastrado no Catarse</strong> e pelo Instagram. Quando o seu exemplar sair, o código de rastreio vai por e-mail. O frete continua grátis, como combinado.</div>
         </details>
         <details class="faq-item">
-          <summary>Quanto custa o frete?</summary>
-          <div class="faq-body">O frete é <strong>grátis para todo o Brasil</strong>. É só escolher sua recompensa no Catarse — o envio já está por nossa conta.</div>
+          <summary>Mudei de endereço ou tenho uma dúvida sobre o meu apoio.</summary>
+          <div class="faq-body">Manda mensagem no Instagram <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener" style="color:var(--acid)">@hcemocional</a> com o seu nome e o e-mail usado no Catarse que a gente resolve.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Meu nome vai mesmo nos agradecimentos?</summary>
+          <div class="faq-body">Se você apoiou com a recompensa <strong>Sunny Day Real Estate é emo raiz</strong>, sim — seu nome sai impresso nos agradecimentos do livro.</div>
         </details>
         <details class="faq-item">
           <summary>Tem versão digital/PDF?</summary>
           <div class="faq-body">Não. O projeto é um objeto físico — livro impresso, feito pra pegar na mão — e <strong>não haverá versão digital/PDF do livro completo</strong>. O que você pode baixar de graça é apenas o 1º capítulo, como amostra de leitura.</div>
-        </details>
-        <details class="faq-item">
-          <summary>O que exatamente vem em cada recompensa?</summary>
-          <div class="faq-body">São três recompensas: <strong>Emo é gente triste, né?</strong> (R$ 99 — livro + marca-página), <strong>Já ouviu Dashboard Confessional?</strong> (R$ 147 — livro + adesivos exclusivos + marca-página) e <strong>Sunny Day Real Estate é emo raiz</strong> (R$ 299,97 — livro + seu nome nos agradecimentos + palheta personalizada + adesivos + pôster exclusivo + livreto das bandas + playlist secreta no Spotify + marca-página). O frete é grátis para todo o Brasil.</div>
-        </details>
-        <details class="faq-item">
-          <summary>Por que Catarse e não loja normal?</summary>
-          <div class="faq-body">Porque é assim que essa cena sempre funcionou: DIY, direto entre quem faz e quem apoia, sem intermediário. O financiamento coletivo é o que viabiliza uma tiragem independente, numerada e sem depender de editora grande.</div>
         </details>
       </div>
     </div>
@@ -1397,11 +1291,11 @@
   <!-- CTA FINAL -->
   <section style="background:var(--acid);color:var(--black);padding:80px 48px;text-align:center">
     <div class="container">
-      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.7;margin-bottom:16px">Tiragem limitada</div>
-      <h2 style="font-family:var(--font-head);font-size:clamp(56px,9vw,128px);line-height:.88;text-transform:uppercase">Garanta o seu<br>antes acabar.</h2>
+      <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.7;margin-bottom:16px">De quem fez pra quem apoiou</div>
+      <h2 style="font-family:var(--font-head);font-size:clamp(56px,9vw,128px);line-height:.88;text-transform:uppercase">Esse livro<br>é de vocês.</h2>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:36px">
-        <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=cta-final" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
-        <a class="btn cta-interno" data-cta="cta-final-recompensas" style="background:transparent;color:var(--black);border-color:var(--black)" href="#" onclick="showPage('livro')">Ver as 3 recompensas →</a>
+        <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+        <a class="btn" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">Seguir no Instagram →</a>
       </div>
       <div style="margin-top:32px;font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;opacity:.6">Instagram: <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline">@hcemocional</a></div>
     </div>
@@ -1548,15 +1442,15 @@
   </section>
 
 
-  <!-- Fechamento: esta aba não tinha nenhum caminho de compra. -->
+  <!-- Fechamento da aba -->
   <section class="closer">
     <h3>Tinha nome.<br>Tinha história.</h3>
-    <p>De Rites of Spring em 1985 ao Hangar 110: um movimento com genealogia, discografia e consequência — reconstruído em quatro anos de pesquisa. 13 capítulos, tiragem numerada à mão.</p>
+    <p>De Rites of Spring em 1985 ao Hangar 110: um movimento com genealogia, discografia e consequência — reconstruído em quatro anos de pesquisa e impresso graças a quem apoiou.</p>
     <div class="closer-ctas">
-      <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=sobre" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
-      <a class="btn cta-interno" data-cta="sobre" style="background:transparent;color:var(--black);border-color:var(--black)" href="#" onclick="showPage('livro')">Ver as 3 recompensas →</a>
+      <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+      <a class="btn" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">Seguir no Instagram →</a>
     </div>
-    <div class="closer-meta">296 páginas · tiragem numerada · frete grátis</div>
+    <div class="closer-meta">Financiado coletivamente · obrigado a quem apoiou</div>
   </section>
 </div>
 
@@ -1582,15 +1476,15 @@
     </div>
   </section>
 
-  <!-- Fechamento: esta aba não tinha nenhum caminho de compra. -->
+  <!-- Fechamento da aba -->
   <section class="closer">
     <h3>A trilha é<br>só o começo.</h3>
-    <p>Cada faixa dessa playlist tem um capítulo por trás. A história completa está no livro — 296 páginas, 13 capítulos, tiragem numerada.</p>
+    <p>Cada faixa dessa playlist tem um capítulo por trás. Dá o play enquanto o seu livro não chega.</p>
     <div class="closer-ctas">
-      <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=playlist" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
-      <a class="btn cta-interno" data-cta="playlist" style="background:transparent;color:var(--black);border-color:var(--black)" href="#" onclick="showPage('livro')">Ver as 3 recompensas →</a>
+      <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+      <a class="btn" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">Seguir no Instagram →</a>
     </div>
-    <div class="closer-meta">296 páginas · tiragem numerada · frete grátis</div>
+    <div class="closer-meta">Financiado coletivamente · obrigado a quem apoiou</div>
   </section>
 </div>
 
@@ -2008,33 +1902,31 @@
         </div>
   </section>
 
-  <!-- Fechamento: esta aba não tinha nenhum caminho de compra. -->
+  <!-- Fechamento da aba -->
   <section class="closer">
     <h3>Sua banda está<br>no livro.</h3>
-    <p>Todas essas bandas — e a história que liga uma na outra — em 296 páginas. Primeira tiragem, numerada à mão.</p>
+    <p>Todas essas bandas — e a história que liga uma na outra — em 296 páginas, impressas por causa de quem apoiou.</p>
     <div class="closer-ctas">
-      <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=bandas" target="_blank" rel="noopener">★ Quero o meu — R$ 99</a>
-      <a class="btn cta-interno" data-cta="bandas" style="background:transparent;color:var(--black);border-color:var(--black)" href="#" onclick="showPage('livro')">Ver as 3 recompensas →</a>
+      <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+      <a class="btn" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">Seguir no Instagram →</a>
     </div>
-    <div class="closer-meta">296 páginas · tiragem numerada · frete grátis</div>
+    <div class="closer-meta">Financiado coletivamente · obrigado a quem apoiou</div>
   </section>
 </div>
 
-<!-- ===================== PEÇ SEU LIVRO ===================== -->
-<div class="page" id="page-livro">
+<!-- ===================== OBRIGADO ===================== -->
+<div class="page" id="page-obrigado">
   <div class="order-hero">
     <div class="container">
       <div class="order-grid">
         <div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:20px">Edição limitada · numerada à mão</div>
-          <h2 class="order-title">Peça<br>seu<br>livro.</h2>
-          <p class="order-desc">Primeira tiragem numerada à mão, com marcador-fanzine impresso e adesivo holográfico colado pelo autor — com paciência variável.</p>
-          <div class="order-price"><span>a partir de</span>&nbsp;R$ 99,00</div>
-          <div style="display:inline-flex;align-items:center;gap:8px;background:var(--black);color:var(--acid);font-family:var(--font-mono);font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 16px;margin-top:16px">★ Frete grátis pro Brasil todo</div>
-          <div class="value-line">296 páginas · 16×23 cm · capa numerada à mão · <b>frete grátis pro Brasil todo</b><br>Dá <b>menos de R$ 0,35 por página</b> — e o frete já está dentro.</div>
-          <div style="font-family:var(--font-mono);font-size:12px;letter-spacing:.15em;margin-top:12px;opacity:.7">RECOMPENSAS OFICIAIS NO CATARSE · FRETE GRÁTIS</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.3em;text-transform:uppercase;opacity:.6;margin-bottom:20px">Campanha encerrada · 1ª edição numerada à mão</div>
+          <h2 class="order-title">Obri<br>ga<br>do.</h2>
+          <p class="order-desc">Esse livro passou quatro anos sendo pesquisado e só virou papel porque você colocou a mão no bolso por uma cena que muita gente chamou de fase. Cada apoio pagou uma página, uma numeração feita à mão, um adesivo colado com paciência variável.</p>
+          <p class="order-desc" style="margin-top:16px">Não era só uma fase. E agora tem livro pra provar — com o seu nome por trás dele.</p>
+          <div style="font-family:var(--font-head);font-size:28px;line-height:1.1;margin-top:28px">Tiago Simão &amp; Allan Stein</div>
           <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
-            <a class="btn catarse-cta" style="background:var(--black);color:var(--acid);border-color:var(--black);font-size:13px;padding:16px 28px" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=recompensas" target="_blank" rel="noopener">★ Apoiar via Catarse</a>
+            <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black);font-size:13px;padding:16px 28px" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">★ Acompanhe no @hcemocional</a>
           </div>
         </div>
         <div class="order-book-img">
@@ -2049,46 +1941,30 @@
 
   <div class="catarse-section">
     <div class="container">
-      <div class="eyebrow" style="color:var(--acid)">Escolha sua recompensa</div>
-      <h2 style="font-family:var(--font-head);font-size:clamp(40px,5vw,72px);text-transform:uppercase;margin-bottom:16px">Recompensas.</h2>
-      <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:40px;font-family:var(--font-mono);letter-spacing:.02em">As três recompensas oficiais da campanha. Frete grátis para todo o Brasil.</p>
+      <div class="eyebrow" style="color:var(--acid)">O que você apoiou</div>
+      <h2 style="font-family:var(--font-head);font-size:clamp(40px,5vw,72px);text-transform:uppercase;margin-bottom:16px">Suas recompensas.</h2>
+      <p style="font-size:15px;opacity:.6;max-width:620px;margin-bottom:40px;font-family:var(--font-mono);letter-spacing:.02em">Pra conferir o que vem no seu pacote. Frete grátis pra todo o Brasil, como combinado.</p>
       <div class="catarse-grid">
         <div class="product-card">
-          <div class="product-badge">Entrada</div>
           <h3>Emo é gente triste, né?</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">Todo show começa num porão. Essa é a sua entrada. Você recebe o livro físico direto na sua casa.</p>
-          <div class="price">R$ 99,00</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">✈ Envio em até 7 dias úteis após a meta bater · Frete grátis</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin-bottom:8px">Itens incluídos</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin:8px 0">Itens incluídos</div>
           <ul>
             <li>1× Exemplar do Livro — 1ª edição, exclusiva de campanha</li>
             <li>1× Marca-página</li>
           </ul>
-          <p style="font-size:12px;opacity:.6;line-height:1.4;margin-top:-6px">⚠️ Edição limitada. Sem previsão de 2ª tiragem.<br>Frete grátis para todo o Brasil.</p>
-          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=tier-emo-gente-triste" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
         </div>
         <div class="product-card featured">
-          <div class="product-badge">Mais popular</div>
           <h3>Já ouviu Dashboard Confessional?</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">Livro físico + adesivos exclusivos. Simples assim, sem enrolação — do mesmo jeito que a cena sempre foi.</p>
-          <div class="price">R$ 147,00</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">✈ Envio em até 7 dias úteis após a meta bater · Frete grátis</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin-bottom:8px">Itens incluídos</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin:8px 0">Itens incluídos</div>
           <ul>
             <li>1× Exemplar do Livro — 1ª edição, exclusiva de campanha</li>
             <li>1× Adesivos exclusivos — arte de campanha</li>
             <li>1× Marca-página</li>
           </ul>
-          <p style="font-size:12px;opacity:.6;line-height:1.4;margin-top:-6px">⚠️ Edição limitada. Sem previsão de 2ª tiragem.<br>Frete grátis para todo o Brasil.</p>
-          <a class="btn btn-primary catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=tier-dashboard-confessional" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
         </div>
         <div class="product-card featured">
-          <div class="product-badge" style="background:var(--red)">Kit completo</div>
           <h3>Sunny Day Real Estate é emo raiz</h3>
-          <p style="font-size:15px;opacity:.7;line-height:1.5">A recompensa mais completa da campanha. Você merece mais do que um livro — merece ter seu nome impresso nele.</p>
-          <div class="price">R$ 299,97</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-bottom:14px">✈ Envio em até 7 dias úteis após a meta bater · Frete grátis</div>
-          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin-bottom:8px">Itens incluídos</div>
+          <div style="font-family:var(--font-mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;opacity:.5;margin:8px 0">Itens incluídos</div>
           <ul>
             <li>1× Exemplar do Livro — 1ª edição, exclusiva de campanha</li>
             <li>1× <strong>Seu nome nos agradecimentos do livro</strong></li>
@@ -2097,34 +1973,18 @@
             <li>1× Pôster exclusivo</li>
             <li>1× Livreto impresso: Bandas presentes no livro</li>
             <li>1× Marca-página</li>
-            <li style="background:var(--black);border:2px solid var(--acid);padding:14px 14px;margin-top:10px;font-weight:700;text-transform:none">🎧 <strong style="color:var(--acid)">1× Playlist secreta no Spotify</strong> — curadoria exclusiva, só pra quem fecha o kit completo</li>
+            <li>1× Playlist secreta no Spotify</li>
           </ul>
-          <p style="font-size:12px;opacity:.6;line-height:1.4;margin-top:-6px">⚠️ Recompensa limitada. Quando o estoque fechar, seu nome não entra mais.<br>Frete grátis para todo o Brasil.</p>
-          <a class="btn btn-red catarse-cta" href="https://www.catarse.com.br/historia-do-hcemo/rewards?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=tier-sunny-day" target="_blank" rel="noopener" style="width:100%;justify-content:center">Apoiar via Catarse →</a>
-        </div>
-      </div>
-
-      <div class="extras-grid" style="margin-top:48px;max-width:760px;margin-left:auto;margin-right:auto">
-        <div class="extra-box">
-          <div class="ico">📦</div>
-          <h4>Frete grátis</h4>
-          <p>Enviamos para todo o Brasil via PAC ou Sedex — frete grátis, incluso no valor da edição padrão.</p>
-        </div>
-        <div class="extra-box">
-          <div class="ico">🇧🇷</div>
-          <h4>Brasil todo</h4>
-          <p>Do Oiapoque ao Chuí: frete grátis para todos os estados, sem custo extra.</p>
         </div>
       </div>
 
       <div style="margin-top:60px;background:var(--acid);color:var(--black);padding:40px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center">
         <div>
           <h3 style="font-family:var(--font-head);font-size:40px;line-height:.9;text-transform:uppercase;margin-bottom:12px">Dúvidas? Fala com a gente.</h3>
-          <p style="font-size:17px;line-height:1.5">Para perguntas sobre pedidos, frete ou parcerias, manda mensagem no Instagram.</p>
+          <p style="font-size:17px;line-height:1.5">Pra perguntas sobre o seu apoio, envio, mudança de endereço ou parcerias, manda mensagem no Instagram.</p>
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;min-width:200px">
           <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>
-          <a class="btn catarse-cta" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=recompensas" target="_blank" rel="noopener">Catarse →</a>
         </div>
       </div>
     </div>
@@ -2140,10 +2000,11 @@
     <div>
       <div class="footer-h">Páginas</div>
       <div class="footer-links">
-        <a href="#" onclick="showPage('home')">Lançamento</a>
+        <a href="#" onclick="showPage('home')">Início</a>
         <a href="#" onclick="showPage('sobre')">Sobre</a>
         <a href="#" onclick="showPage('bandas')">Bandas × Eras</a>
-        <a href="#" onclick="showPage('livro')">Peça seu Livro</a>
+        <a href="#" onclick="showPage('playlist')">Playlist</a>
+        <a href="#" onclick="showPage('obrigado')">Obrigado</a>
       </div>
     </div>
     <div>
@@ -2159,7 +2020,6 @@
       <div class="footer-links">
         <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">★ Instagram</a>
         <a href="https://www.tiktok.com/@hardcore.emocional" target="_blank" rel="noopener">★ TikTok</a>
-        <a class="catarse-cta" href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=footer" target="_blank" rel="noopener">★ Catarse</a>
       </div>
     </div>
     <div>
@@ -2178,20 +2038,9 @@
   </div>
   <div class="footer-legal">
     <span>© 2026 Tiago Simão & Allan Stein</span>
-    <span>Financiado via Catarse · DIY como sempre foi</span>
+    <span>Financiado coletivamente · DIY como sempre foi</span>
   </div>
 </footer>
-
-<!-- Barra de compra fixa — só no mobile, aparece depois da primeira rolagem -->
-<div class="buybar" id="buybar" aria-hidden="true">
-  <div class="buybar-info">
-    <div class="buybar-price">R$ 99</div>
-    <div class="buybar-note">Frete grátis · 296 páginas</div>
-  </div>
-  <a class="btn btn-primary catarse-cta" id="buybar-cta"
-     href="https://www.catarse.me/historia-do-hcemo?utm_source=site&utm_medium=cta&utm_campaign=lancamento&utm_content=buybar"
-     target="_blank" rel="noopener">★ Quero o meu</a>
-</div>
 
 <script>
 function closeMobileMenu() {
@@ -2241,9 +2090,11 @@ function showPage(id) {
 
 // Deep-linking por hash: /#playlist abre a aba Playlist (usado por /playlist-do-livro)
 (function () {
-  var valid = ['home', 'sobre', 'playlist', 'bandas', 'livro'];
+  var valid = ['home', 'sobre', 'playlist', 'bandas', 'obrigado'];
   function openFromHash() {
     var id = (location.hash || '').replace('#', '');
+    // Links antigos para a aba de compra (#livro) caem no agradecimento.
+    if (id === 'livro') id = 'obrigado';
     if (valid.indexOf(id) !== -1) showPage(id);
   }
   openFromHash();
@@ -2270,38 +2121,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     document.querySelectorAll('.spotify-soon').forEach(function (p) { p.remove(); });
   }
 
-  // --- Rastreamento de cliques (GA4 + Meta Pixel) nos CTAs do Catarse ---
-  // Descobre de qual botão veio o clique pelo parâmetro utm_content do link.
-  function ctaLocal(href) {
-    var m = /utm_content=([^&]+)/.exec(href || '');
-    return m ? decodeURIComponent(m[1]) : 'desconhecido';
-  }
-  document.querySelectorAll('a.catarse-cta').forEach(function (a) {
-    a.addEventListener('click', function () {
-      var local = ctaLocal(a.getAttribute('href'));
-      // GA4: evento de clique no CTA de compra
-      if (window.hcTrack) hcTrack('click_catarse', { botao: local, texto: (a.textContent || '').trim() });
-      // Meta Pixel: início de checkout
-      if (window.fbq) {
-        try { fbq('track', 'InitiateCheckout', { content_name: 'Catarse — A História do Hardcore Emocional', value: 99, currency: 'BRL' }); } catch (e) {}
-      }
-    });
-  });
-
-  // --- CTAs internos (levam à aba de recompensas, não ao Catarse) ---
-  // Antes eles só geravam page_view: entravam no denominador da conversão
-  // e nunca no numerador. Agora contam como intenção de compra.
-  document.querySelectorAll('a.cta-interno').forEach(function (a) {
-    a.addEventListener('click', function () {
-      if (window.hcTrack) {
-        hcTrack('click_cta_interno', {
-          botao: a.getAttribute('data-cta') || 'desconhecido',
-          texto: (a.textContent || '').trim()
-        });
-      }
-    });
-  });
-
   // --- Rastreamento dos demais botões/links importantes (GA4) ---
   // Spotify (playlist oficial)
   document.querySelectorAll('[data-spotify]').forEach(function (a) {
@@ -2316,34 +2135,9 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
   });
 
-  // --- Prazo da campanha: mostrado direto da config, sem depender de API ---
-  // O prazo é o dado mais sensível a ficar errado (é literalmente o que motiva
-  // o clique), então não fica esperando uma chamada de rede que pode falhar —
-  // calcula e mostra na hora, a partir de CAMPAIGN_ENDS_ISO. Atualiza sozinho
-  // a cada minuto pra virar o dia certo sem precisar recarregar a página.
-  (function () {
-    if (!isSet(C.CAMPAIGN_ENDS_ISO)) return;
-    var fim = new Date(C.CAMPAIGN_ENDS_ISO).getTime();
-    var wrap = document.getElementById('urg-deadline');
-    var elDays = document.getElementById('cd-days');
-    var elLabel = document.getElementById('cd-label');
-    if (!wrap || !elDays || !elLabel) return;
-
-    function tick() {
-      var dias = Math.ceil((fim - Date.now()) / 86400000);
-      if (dias <= 0) { wrap.hidden = true; return; }
-      elDays.textContent = dias;
-      elLabel.textContent = dias === 1 ? 'dia para a campanha fechar' : 'dias para a campanha fechar';
-      wrap.hidden = false;
-    }
-    tick();
-    setInterval(tick, 60000);
-  })();
-
-  // --- Apoiadores via API pública do Catarse (reforço opcional) ---
-  // Consulta por permalink (não precisa do ID numérico). Só mostra a prova
-  // social quando a API responde com um número que ajuda; se falhar, o bloco
-  // simplesmente continua escondido.
+  // --- Total de apoiadores via API pública do Catarse (opcional) ---
+  // Consulta por permalink (não precisa do ID numérico). Se a API falhar, o
+  // bloco simplesmente continua escondido.
   (function () {
     var base = 'https://api.catarse.me/project_details?select=project_id,permalink,total_contributions,total_contributors,state';
     var url = isSet(C.CATARSE_PROJECT_ID)
@@ -2362,7 +2156,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
           var n = document.getElementById('urg-backers');
           var lbl = document.getElementById('urg-backers-label');
           if (n) n.textContent = backers.toLocaleString('pt-BR');
-          if (lbl) lbl.textContent = backers === 1 ? 'pessoa já garantiu a sua' : 'pessoas já garantiram a sua';
+          if (lbl) lbl.textContent = backers === 1 ? 'pessoa fez esse livro existir' : 'pessoas fizeram esse livro existir';
           if (proof) proof.hidden = false;
         }
       })
@@ -2442,7 +2236,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
       baixaCapitulo();
 
-      say('Pronto — o capítulo está baixando. A gente te avisa quando faltarem 48h pro fim da campanha.', 'ok');
+      say('Pronto — o capítulo está baixando. Boa leitura!', 'ok');
       if (btn) { btn.disabled = false; btn.textContent = original; }
       form.reset();
     });
@@ -2450,34 +2244,6 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     input.addEventListener('input', function () {
       input.removeAttribute('aria-invalid');
     });
-  })();
-
-  // --- Barra de compra fixa (mobile) ---
-  // Aparece depois da primeira rolagem e some quando o menu está aberto.
-  (function () {
-    var bar = document.getElementById('buybar');
-    var links = document.getElementById('nav-links');
-    if (!bar) return;
-
-    var visivel = false;
-    function atualiza() {
-      var menuAberto = links && links.classList.contains('open');
-      var passouDaDobra = window.scrollY > window.innerHeight * 0.25;
-      var mostrar = passouDaDobra && !menuAberto;
-      if (mostrar === visivel) return;
-      visivel = mostrar;
-      bar.classList.toggle('show', mostrar);
-      bar.setAttribute('aria-hidden', mostrar ? 'false' : 'true');
-    }
-
-    var agendado = false;
-    window.addEventListener('scroll', function () {
-      if (agendado) return;
-      agendado = true;
-      requestAnimationFrame(function () { agendado = false; atualiza(); });
-    }, { passive: true });
-    document.addEventListener('click', function () { setTimeout(atualiza, 60); });
-    atualiza();
   })();
 
 })();
