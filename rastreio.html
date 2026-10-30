@@ -85,7 +85,7 @@
     .code-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
     .code {
       font-family: var(--font-head); font-size: clamp(40px, 11vw, 64px); line-height: 1;
-      letter-spacing: .04em; word-break: break-all;
+      letter-spacing: .04em; overflow-wrap: anywhere;
     }
     .copy {
       background: var(--black); color: var(--acid); padding: 10px 14px; font-size: 10px;
@@ -115,6 +115,9 @@
       border-radius: 50%; background: var(--black); border: 2px solid var(--muted);
     }
     .timeline li:first-child::before { border-color: var(--acid); background: var(--acid); }
+    .timeline li.todo { opacity: .45; }
+    .timeline li.todo::before { border-color: var(--muted); background: var(--black); border-style: dashed; }
+    .timeline li.now::before { border-color: var(--acid); background: var(--acid); box-shadow: 0 0 0 5px rgba(211,247,79,.2); }
     .timeline .t { font-weight: 600; font-size: 20px; line-height: 1.2; }
     .timeline .d { font-size: 16px; opacity: .7; }
     .timeline .m { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
@@ -226,14 +229,20 @@
         html += '<div class="code-row"><span class="code">' + esc(p.codigo) + '</span>' +
           '<button class="copy" type="button" data-copy="' + esc(p.codigo) + '">Copiar</button></div>';
       } else {
-        html += '<div class="code-row"><span class="code">Em preparo</span></div>';
+        html += '<div class="code-row"><span class="code">Aguardando postagem</span></div>';
       }
       html += '</div>';
 
       var ev = p.eventos || [];
       if (!p.codigo) {
-        html += '<div class="status"><span class="dot"></span><div><h2>Seu livro está sendo preparado</h2>' +
-          '<div class="when">Assim que ele for postado, o código aparece aqui.</div></div></div>';
+        html += '<div class="status"><span class="dot"></span><div><h2>Em produção</h2>' +
+          '<div class="when">Seu livro e todos os materiais estão na gráfica.</div></div></div>';
+        html += '<ol class="timeline">' +
+          '<li class="todo"><div class="t">Entregue</div></li>' +
+          '<li class="todo"><div class="t">Postado nos Correios</div><div class="d">O código de rastreio aparece aqui assim que o pacote for postado.</div></li>' +
+          '<li class="now"><div class="t">Em produção na gráfica</div><div class="d">Livro, adesivos, pôster e marca-página sendo impressos.</div></li>' +
+          '<li><div class="t">Apoio confirmado</div></li>' +
+          '</ol>';
       } else if (ev.length) {
         var ult = ev[0];
         html += '<div class="status ' + tipoStatus(ult.descricao) + '"><span class="dot"></span><div>' +
@@ -282,7 +291,7 @@
         var d = await carregar();
         var lista = (d.pedidos || {})[await sha256(email)];
         if (!lista || !lista.length) {
-          aviso('Não achamos nenhum pedido com <strong>' + esc(email) + '</strong>. ' +
+          aviso('<strong>E-mail não encontrado.</strong> Não achamos nenhum pedido com <strong>' + esc(email) + '</strong>. ' +
             'Confere se é o mesmo e-mail do apoio. Se ainda não aparecer, chama no ' +
             '<a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>.');
         } else {
