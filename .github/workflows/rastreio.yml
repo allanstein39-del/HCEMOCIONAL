@@ -3,7 +3,7 @@ name: Atualizar rastreio
 
 on:
   schedule:
-    - cron: "17 */3 * * *"   # a cada 3 horas
+    - cron: "*/15 * * * *"   # planilha a cada 15 min (Correios: a cada 2h por código)
   workflow_dispatch:
 
 permissions:
@@ -30,8 +30,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # só os carimbos de hora mudaram? então não há o que publicar
-          if git diff --quiet -I'"(atualizado|consultado)"' -- rastreio.json; then
+          # só o carimbo de hora mudou? então não há o que publicar
+          if git diff --quiet -I'"atualizado"' -- rastreio.json; then
             echo "Sem mudanças no rastreio."; exit 0
           fi
           git config user.name "github-actions[bot]"

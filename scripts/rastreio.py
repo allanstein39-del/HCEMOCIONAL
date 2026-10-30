@@ -18,6 +18,10 @@ import base64, csv, hashlib, io, json, os, sys, time, unicodedata
 import urllib.request, urllib.error
 from datetime import datetime, timezone
 
+# A planilha é lida a cada execução (a cada 15 min); os Correios só são
+# consultados de novo para um código depois deste intervalo.
+CONSULTA_CORREIOS_HORAS = 2
+
 SAIDA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'rastreio.json')
 UA = 'Mozilla/5.0 (hcemocional.com.br rastreio)'
 
@@ -31,6 +35,14 @@ def http(url, method='GET', headers=None, data=None, timeout=30):
                                  headers={'User-Agent': UA, 'Accept': 'application/json', **(headers or {})})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
+
+
+def recente(iso):
+    try:
+        dt = datetime.fromisoformat(iso)
+    except (TypeError, ValueError):
+        return False
+    return (datetime.now(timezone.utc) - dt).total_seconds() < CONSULTA_CORREIOS_HORAS * 3600
 
 
 def chave(texto):
@@ -113,7 +125,7 @@ def main():
     except Exception:
         anterior = {}
 
-    correios = Correios()
+    correios = None
     cache, saida = {}, {}
     for p in ler_planilha(sheet_id):
         h = hashlib.sha256(p['email'].encode()).hexdigest()
@@ -121,13 +133,17 @@ def main():
                 'eventos': [], 'mensagem': None, 'consultado': None}
         if p['codigo']:
             if p['codigo'] not in cache:
+                velho = next((x for x in anterior.get(h, []) if x.get('codigo') == p['codigo']), None)
+                if velho and recente(velho.get('consultado')):
+                    cache[p['codigo']] = {k: velho[k] for k in ('eventos', 'mensagem', 'consultado')}
+            if p['codigo'] not in cache:
+                correios = correios or Correios()
                 try:
                     cache[p['codigo']] = dict(correios.consultar(p['codigo']), consultado=agora())
                     time.sleep(1)
                 except Exception as e:
                     print('Falha ao consultar %s: %s' % (p['codigo'], e))
                     # mantém o último status conhecido em vez de apagar
-                    velho = next((x for x in anterior.get(h, []) if x.get('codigo') == p['codigo']), None)
                     cache[p['codigo']] = {k: velho[k] for k in ('eventos', 'mensagem', 'consultado')} if velho else {}
             item.update(cache[p['codigo']])
         saida.setdefault(h, []).append(item)
