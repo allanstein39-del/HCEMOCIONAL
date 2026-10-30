@@ -799,7 +799,9 @@
       /* cabeçalhos de era (ex.: "2010s · Sad Trap") quebram em telas estreitas */
       [style*="display:flex"][style*="align-items:baseline"] { flex-wrap: wrap; }
       .footer-grid { gap: 32px 24px; }
-      .footer-brand { font-size: clamp(40px, 12vw, 56px); }
+      /* Marca do rodapé ocupa a linha inteira: em meia coluna as palavras quebravam no meio */
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+      .footer-brand { font-size: clamp(40px, 12vw, 56px); overflow-wrap: normal; word-break: normal; hyphens: none; }
       .footer-links a { overflow-wrap: anywhere; }
     }
 
