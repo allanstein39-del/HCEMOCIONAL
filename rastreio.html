@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rastreio do pedido — A História do Hardcore Emocional</title>
+  <meta name="description" content="Acompanhe o envio do seu livro A História do Hardcore Emocional. Digite o e-mail usado no apoio e veja o código e o status nos Correios." />
+  <link rel="canonical" href="https://hcemocional.com.br/rastreio" />
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0d0d0d" />
+
+  <!-- Prévia ao compartilhar o link -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="A História do Hardcore Emocional" />
+  <meta property="og:title" content="Rastreie seu livro" />
+  <meta property="og:description" content="Digite o e-mail do apoio e veja o código de rastreio e o status do envio." />
+  <meta property="og:image" content="https://hcemocional.com.br/og-image.jpg" />
+  <meta property="og:url" content="https://hcemocional.com.br/rastreio" />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --acid: #d3f74f;
+      --paper: #f5f0e8;
+      --red: #e8321a;
+      --mid: #2a2a2a;
+      --muted: #8a867f;
+      --font-head: 'Bebas Neue', 'Arial Narrow', 'Helvetica Neue', Impact, sans-serif;
+      --font-body: 'Barlow Condensed', 'Arial Narrow', 'Helvetica Neue', Arial, sans-serif;
+      --font-mono: 'Space Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; background: var(--black); color: var(--paper);
+      font-family: var(--font-body); font-size: 19px; line-height: 1.4;
+    }
+    a { color: inherit; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; border-bottom: 2px solid var(--acid);
+    }
+    header img { height: 44px; width: auto; display: block; }
+    header .back {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      text-decoration: none; opacity: .7;
+    }
+    header .back:hover { opacity: 1; color: var(--acid); }
+    main { max-width: 720px; margin: 0 auto; padding: 56px 20px 80px; }
+    .eyebrow {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: .3em;
+      text-transform: uppercase; color: var(--acid);
+    }
+    h1 {
+      font-family: var(--font-head); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(64px, 16vw, 112px); line-height: .88; margin: 16px 0 20px;
+    }
+    .lead { opacity: .75; max-width: 520px; margin: 0 0 32px; }
+
+    form { display: flex; gap: 0; border: 2px solid var(--acid); }
+    input[type=email] {
+      flex: 1; min-width: 0; background: transparent; border: 0; color: var(--paper);
+      font-family: var(--font-mono); font-size: 16px; padding: 18px 16px;
+    }
+    input[type=email]::placeholder { color: var(--muted); }
+    input[type=email]:focus { outline: none; background: rgba(211,247,79,.06); }
+    button {
+      background: var(--acid); color: var(--black); border: 0; cursor: pointer;
+      font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .2em;
+      text-transform: uppercase; padding: 0 24px;
+    }
+    button:hover { filter: brightness(1.08); }
+    button:focus-visible, input:focus-visible { outline: 3px solid var(--paper); outline-offset: 2px; }
+    button[disabled] { opacity: .6; cursor: progress; }
+
+    .msg {
+      margin-top: 24px; padding: 18px 20px; border-left: 4px solid var(--red);
+      background: rgba(232,50,26,.08); font-size: 18px;
+    }
+    .msg strong { color: var(--paper); }
+
+    /* ---------- resultado ---------- */
+    .card { margin-top: 40px; border: 1px solid var(--mid); }
+    .card + .card { margin-top: 24px; }
+    .card-top { padding: 24px; background: var(--acid); color: var(--black); }
+    .card-top .hi { font-family: var(--font-mono); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; }
+    .code-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+    .code {
+      font-family: var(--font-head); font-size: clamp(40px, 11vw, 64px); line-height: 1;
+      letter-spacing: .04em; overflow-wrap: anywhere;
+    }
+    .copy {
+      background: var(--black); color: var(--acid); padding: 10px 14px; font-size: 10px;
+    }
+    .status {
+      display: flex; gap: 16px; align-items: flex-start; padding: 24px;
+      border-bottom: 1px solid var(--mid);
+    }
+    .status .dot {
+      flex: none; width: 14px; height: 14px; margin-top: 10px; border-radius: 50%;
+      background: var(--paper); box-shadow: 0 0 0 6px rgba(245,240,232,.12);
+    }
+    .status.ok .dot { background: var(--acid); box-shadow: 0 0 0 6px rgba(211,247,79,.18); }
+    .status.alerta .dot { background: var(--red); box-shadow: 0 0 0 6px rgba(232,50,26,.18); }
+    .status h2 {
+      font-family: var(--font-head); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(32px, 7vw, 44px); line-height: .95; margin: 0 0 6px;
+    }
+    .status .when { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+
+    .timeline { list-style: none; margin: 0; padding: 8px 24px 16px; }
+    .timeline li {
+      position: relative; padding: 14px 0 14px 28px; border-left: 2px solid var(--mid); margin-left: 6px;
+    }
+    .timeline li::before {
+      content: ''; position: absolute; left: -7px; top: 20px; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--black); border: 2px solid var(--muted);
+    }
+    .timeline li:first-child::before { border-color: var(--acid); background: var(--acid); }
+    .timeline li.todo { opacity: .45; }
+    .timeline li.todo::before { border-color: var(--muted); background: var(--black); border-style: dashed; }
+    .timeline li.now::before { border-color: var(--acid); background: var(--acid); box-shadow: 0 0 0 5px rgba(211,247,79,.2); }
+    .timeline .t { font-weight: 600; font-size: 20px; line-height: 1.2; }
+    .timeline .d { font-size: 16px; opacity: .7; }
+    .timeline .m { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+    .card-foot {
+      display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center;
+      padding: 16px 24px; border-top: 1px solid var(--mid);
+      font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    }
+    .card-foot a {
+      color: var(--acid); text-decoration: none; letter-spacing: .15em; text-transform: uppercase;
+    }
+    .card-foot a:hover { text-decoration: underline; }
+    .empty { padding: 24px; opacity: .8; }
+
+    .help {
+      margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--mid);
+      font-family: var(--font-mono); font-size: 12px; color: var(--muted); line-height: 1.7;
+    }
+    .help a { color: var(--acid); }
+    [hidden] { display: none !important; }
+
+    @media (max-width: 480px) {
+      form { flex-direction: column; }
+      button { padding: 16px; }
+      .status, .card-top { padding: 20px; }
+      .timeline { padding: 8px 20px 12px; }
+      .card-foot { padding: 14px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" aria-label="A História do Hardcore Emocional — início">
+      <picture>
+        <source srcset="/logo-dark-bg.webp" type="image/webp" />
+        <img src="/logo-dark-bg.png" alt="A História do Hardcore Emocional" width="192" height="120" />
+      </picture>
+    </a>
+    <a class="back" href="/">← Voltar ao site</a>
+  </header>
+
+  <main>
+    <div class="eyebrow">Envio dos livros · Correios</div>
+    <h1>Rastreie<br>seu livro.</h1>
+    <p class="lead">Digite o e-mail que você usou no apoio pra ver o código de rastreio e onde o seu pacote está.</p>
+
+    <form id="form" novalidate>
+      <input id="email" type="email" aria-label="E-mail usado no apoio" inputmode="email" autocomplete="email" placeholder="seu@email.com" required />
+      <button id="btn" type="submit">Rastrear</button>
+    </form>
+
+    <div id="msg" class="msg" role="status" hidden></div>
+    <div id="resultado" aria-live="polite"></div>
+
+    <div class="help">
+      O status é atualizado automaticamente a cada poucas horas a partir do sistema dos Correios.<br>
+      Não encontrou seu pedido ou mudou de endereço? Fala com a gente no
+      <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>.
+    </div>
+  </main>
+
+  <script>
+  (function () {
+    var form = document.getElementById('form');
+    var input = document.getElementById('email');
+    var btn = document.getElementById('btn');
+    var msg = document.getElementById('msg');
+    var out = document.getElementById('resultado');
+    var dados = null;
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function dataBR(iso) {
+      if (!iso) return '';
+      var d = new Date(iso);
+      if (isNaN(d)) return esc(iso);
+      return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
+        ' · ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+    }
+    function aviso(html) { msg.innerHTML = html; msg.hidden = false; }
+
+    async function sha256(texto) {
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
+      return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+    }
+    async function carregar() {
+      if (dados) return dados;
+      var r = await fetch('/rastreio.json?v=' + Date.now(), { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      dados = await r.json();
+      return dados;
+    }
+
+    function tipoStatus(desc) {
+      var d = (desc || '').toLowerCase();
+      if (/entregue/.test(d)) return 'ok';
+      if (/(não entregue|nao entregue|devolvid|ausente|recusad|extraviad|aguardando retirada|endereço incorreto|endereco incorreto)/.test(d)) return 'alerta';
+      return '';
+    }
+
+    function render(p) {
+      var html = '<article class="card">';
+      html += '<div class="card-top"><div class="hi">' + (p.nome ? 'Oi, ' + esc(p.nome) + ' · ' : '') + 'Código de rastreio</div>';
+      if (p.codigo) {
+        html += '<div class="code-row"><span class="code">' + esc(p.codigo) + '</span>' +
+          '<button class="copy" type="button" data-copy="' + esc(p.codigo) + '">Copiar</button></div>';
+      } else {
+        html += '<div class="code-row"><span class="code">Aguardando postagem</span></div>';
+      }
+      html += '</div>';
+
+      var ev = p.eventos || [];
+      if (!p.codigo) {
+        html += '<div class="status"><span class="dot"></span><div><h2>Em produção</h2>' +
+          '<div class="when">Seu livro e todos os materiais estão na gráfica.</div></div></div>';
+        html += '<ol class="timeline">' +
+          '<li class="todo"><div class="t">Entregue</div></li>' +
+          '<li class="todo"><div class="t">Postado nos Correios</div><div class="d">O código de rastreio aparece aqui assim que o pacote for postado.</div></li>' +
+          '<li class="now"><div class="t">Em produção na gráfica</div><div class="d">Livro, adesivos, pôster e marca-página sendo impressos.</div></li>' +
+          '<li><div class="t">Apoio confirmado</div></li>' +
+          '</ol>';
+      } else if (ev.length) {
+        var ult = ev[0];
+        html += '<div class="status ' + tipoStatus(ult.descricao) + '"><span class="dot"></span><div>' +
+          '<h2>' + esc(ult.descricao) + '</h2><div class="when">' + dataBR(ult.data) +
+          (ult.local ? ' · ' + esc(ult.local) : '') + '</div></div></div>';
+        html += '<ol class="timeline">';
+        ev.forEach(function (e) {
+          html += '<li><div class="t">' + esc(e.descricao) + '</div>' +
+            (e.detalhe ? '<div class="d">' + esc(e.detalhe) + '</div>' : '') +
+            '<div class="m">' + dataBR(e.data) + (e.local ? ' · ' + esc(e.local) : '') +
+            (e.destino ? ' → ' + esc(e.destino) : '') + '</div></li>';
+        });
+        html += '</ol>';
+      } else {
+        html += '<div class="status"><span class="dot"></span><div><h2>Postado, aguardando os Correios</h2>' +
+          '<div class="when">' + esc(p.mensagem || 'O status aparece aqui assim que os Correios registrarem a movimentação.') + '</div></div></div>';
+      }
+
+      if (p.codigo) {
+        html += '<div class="card-foot"><span>' + (p.consultado ? 'Consultado em ' + dataBR(p.consultado) : '') + '</span>' +
+          '<a href="https://rastreamento.correios.com.br/app/index.php" target="_blank" rel="noopener" data-copy="' + esc(p.codigo) + '">Ver no site dos Correios →</a></div>';
+      }
+      return html + '</article>';
+    }
+
+    out.addEventListener('click', function (e) {
+      var el = e.target.closest('[data-copy]');
+      if (!el || !navigator.clipboard) return;
+      navigator.clipboard.writeText(el.getAttribute('data-copy')).then(function () {
+        if (el.tagName === 'BUTTON') { el.textContent = 'Copiado!'; setTimeout(function () { el.textContent = 'Copiar'; }, 1800); }
+      }).catch(function () {});
+    });
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      msg.hidden = true;
+      out.innerHTML = '';
+      var email = input.value.trim().toLowerCase().replace(/\s+/g, '');
+      if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        aviso('Confere o e-mail: parece que falta alguma coisa.');
+        input.focus();
+        return;
+      }
+      btn.disabled = true; btn.textContent = 'Buscando…';
+      try {
+        var d = await carregar();
+        var lista = (d.pedidos || {})[await sha256(email)];
+        if (!lista || !lista.length) {
+          aviso('<strong>E-mail não encontrado.</strong> Não achamos nenhum pedido com <strong>' + esc(email) + '</strong>. ' +
+            'Confere se é o mesmo e-mail do apoio. Se ainda não aparecer, chama no ' +
+            '<a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>.');
+        } else {
+          out.innerHTML = lista.map(render).join('');
+          if (window.history) history.replaceState(null, '', '/rastreio');
+        }
+      } catch (err) {
+        aviso('Não conseguimos carregar o rastreio agora. Tenta de novo em alguns minutos.');
+      } finally {
+        btn.disabled = false; btn.textContent = 'Rastrear';
+      }
+    });
+  })();
+  </script>
+</body>
+</html>

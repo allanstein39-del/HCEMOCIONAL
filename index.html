@@ -799,7 +799,9 @@
       /* cabeçalhos de era (ex.: "2010s · Sad Trap") quebram em telas estreitas */
       [style*="display:flex"][style*="align-items:baseline"] { flex-wrap: wrap; }
       .footer-grid { gap: 32px 24px; }
-      .footer-brand { font-size: clamp(40px, 12vw, 56px); }
+      /* Marca do rodapé ocupa a linha inteira: em meia coluna as palavras quebravam no meio */
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+      .footer-brand { font-size: clamp(40px, 12vw, 56px); overflow-wrap: normal; word-break: normal; hyphens: none; }
       .footer-links a { overflow-wrap: anywhere; }
     }
 
@@ -809,6 +811,20 @@
       transition: opacity .5s, transform .5s;
     }
     .reveal.visible { opacity: 1; transform: none; }
+
+    /* ========== AGRADECIMENTOS (nomes dos apoiadores) ========== */
+    .thanks-list {
+      list-style: none; margin: 48px 0 0; padding: 0;
+      columns: 4 220px; column-gap: 40px;
+    }
+    .thanks-list li {
+      break-inside: avoid; padding: 7px 0; border-bottom: 1px solid rgba(245,240,232,.08);
+      font-family: var(--font-body); font-size: 19px; line-height: 1.25;
+    }
+    .thanks-count {
+      font-family: var(--font-mono); font-size: 12px; letter-spacing: .15em;
+      text-transform: uppercase; color: var(--acid); margin-top: 20px;
+    }
 
     /* ========== FAIXA DE AGRADECIMENTO ========== */
     .urgency-bar {
@@ -986,6 +1002,7 @@
     <a href="#" onclick="showPage('sobre')" id="nav-sobre">Sobre</a>
     <a href="#" onclick="showPage('bandas')" id="nav-bandas">Bandas × Eras</a>
     <a href="#" onclick="showPage('playlist')" id="nav-playlist">Playlist</a>
+    <a href="#" onclick="showPage('agradecimentos')" id="nav-agradecimentos">Agradecimentos</a>
     <a href="#" onclick="showPage('obrigado')" id="nav-obrigado" class="cta-nav">Obrigado</a>
   </div>
 </nav>
@@ -1914,6 +1931,206 @@
   </section>
 </div>
 
+<!-- ===================== AGRADECIMENTOS ===================== -->
+<div class="page" id="page-agradecimentos">
+  <section class="section section-dark">
+    <div class="container">
+      <div class="eyebrow" style="color:var(--acid)">Quem fez esse livro existir</div>
+      <h2 class="section-title">Agrade<br>cimentos.</h2>
+      <p style="font-size:18px;opacity:.75;max-width:620px;margin-top:24px">Esse livro só virou papel porque cada uma dessas pessoas acreditou que não era só uma fase. Os nomes abaixo estão impressos nos agradecimentos da 1ª edição.</p>
+      <div class="thanks-count">175 apoiadores · obrigado</div>
+      <ul class="thanks-list">
+        <li>Aaron Hildebrand</li>
+        <li>Adriana Abdul Ghani</li>
+        <li>Aleksandr Lênin de Moraes Bastos</li>
+        <li>Alessandro Ferrony</li>
+        <li>Alex Cavalcanti</li>
+        <li>Alexandre Kitamura</li>
+        <li>Allan Lopes</li>
+        <li>Amanda Stefan</li>
+        <li>Ana Carolina Baccan Maximino</li>
+        <li>Ana Carolina Ballan Sebe</li>
+        <li>Ana Paula Proenca</li>
+        <li>André Lorente</li>
+        <li>Aristides Rudnick Jr</li>
+        <li>Átila Canel Joly</li>
+        <li>Bruna Regina Fidelis Brito</li>
+        <li>Bruno Amaral</li>
+        <li>Bruno de Paula</li>
+        <li>Caio</li>
+        <li>Camila Sanchez Maya Galeazzi</li>
+        <li>Carol Pires</li>
+        <li>Christian S. Kern</li>
+        <li>Cleiton Teles</li>
+        <li>Cleyton Marciano</li>
+        <li>Daiane Lourenço</li>
+        <li>Daniel Galvão</li>
+        <li>Daniel Pantoja Franco</li>
+        <li>Daniel “Russo” Teixeira Jerônino</li>
+        <li>Danilo Luminatti</li>
+        <li>Débora Zanghelini</li>
+        <li>Deni Gustavo Porto Viana</li>
+        <li>Denis Ronan Rocha Franca</li>
+        <li>Derek Ponto.</li>
+        <li>Diego Henrique Dantas</li>
+        <li>Diogo Nascimento Costa</li>
+        <li>Douglas da Silva Duarte</li>
+        <li>Douglas Heitor Saraiva Manfré</li>
+        <li>Douglas Quintino</li>
+        <li>Edil Macêdo Pinheiro de Amorim</li>
+        <li>Eduardo Codá Machado</li>
+        <li>Eduardo de Oliveira Ferreira</li>
+        <li>Eduardo Goés</li>
+        <li>Eduardo Siuffi Bergamasco</li>
+        <li>Elaine Milanez</li>
+        <li>Emanuell Oliveira</li>
+        <li>Emerson Carvalho</li>
+        <li>Esther Borges</li>
+        <li>Everton Alves Rêgo</li>
+        <li>Fabio de oliveira laviola filho 660</li>
+        <li>Felipe Regis</li>
+        <li>fellipe rienzi</li>
+        <li>Fernando</li>
+        <li>Fernando Rolim Brusarosco</li>
+        <li>Filipe Milanese</li>
+        <li>Flavia Godoy</li>
+        <li>Flavio Filho</li>
+        <li>Francisco Guglielmoni</li>
+        <li>Gabriel Tropz</li>
+        <li>Gabriela Parisi</li>
+        <li>Giovani Spezani de Moraes</li>
+        <li>Glauco Assmann</li>
+        <li>Guga</li>
+        <li>Guilherme Dias</li>
+        <li>Guilherme Ieiri</li>
+        <li>Guilherme Simao Gibertoni</li>
+        <li>Gustavo de Lira</li>
+        <li>Gustavo Dias</li>
+        <li>Hazovnis</li>
+        <li>Helio Jairo Zancope Neto</li>
+        <li>Hiago Horner</li>
+        <li>Hugo Marques Cardoso Campos</li>
+        <li>Igor Barbosa Da Silva</li>
+        <li>Igor Serrano</li>
+        <li>Ítalo Ferreira</li>
+        <li>Jean Alexandro</li>
+        <li>Jhony Nicola</li>
+        <li>Jihanne Kuhnen Kchachan</li>
+        <li>João Caetano</li>
+        <li>João Henrique Rocha Bonillo</li>
+        <li>João Luis de Andrade Carvalho</li>
+        <li>Joao Vitor Uetanabaro</li>
+        <li>Jonatan Mathias de Oliveira</li>
+        <li>José Miguel Neto</li>
+        <li>Juan Jaques</li>
+        <li>Julia Lorenzutti</li>
+        <li>Juliana Prado</li>
+        <li>Jullie Giacomini</li>
+        <li>Laís Wrzesinski Ribeiro</li>
+        <li>Larissa Martins da Silva</li>
+        <li>Leandro Passos</li>
+        <li>Leandro Petrokas</li>
+        <li>LEELEE</li>
+        <li>Leonardo Cavalcanti</li>
+        <li>Leonardo Faizibaioff</li>
+        <li>Leonardo Henrique de Camargo Barros</li>
+        <li>Lucas Barreto Mendes</li>
+        <li>Lucas Degrande</li>
+        <li>Lucas Ferreira Vieira</li>
+        <li>Lucas Ryoiti Maruo</li>
+        <li>Lucas Theodoro Velho</li>
+        <li>Lucas Vieira Borges</li>
+        <li>Lud Galvão</li>
+        <li>Luiz Françoso</li>
+        <li>Luiz Guilherme Chaguri</li>
+        <li>Luiz Henrique Souza</li>
+        <li>Luma Cristina Melão Pereira</li>
+        <li>Marcelo de Franceschi dos Santos</li>
+        <li>Marcelo Hideki Fujino</li>
+        <li>Marcio</li>
+        <li>Márcio Coelho</li>
+        <li>Marcos Kilmer</li>
+        <li>Marcus Vinicius Cavalcanti dos Reis</li>
+        <li>Maria Clara Lima Alves</li>
+        <li>Mariana K.</li>
+        <li>Mariana Moss</li>
+        <li>Mateus</li>
+        <li>Mateus Couto</li>
+        <li>Mateus Nava</li>
+        <li>Matheus Ferreira da Rocha</li>
+        <li>Matheus Frizo</li>
+        <li>Matheus Guimarães</li>
+        <li>Maurício Pilch</li>
+        <li>Maximiliano Meyer</li>
+        <li>Natália Hipólito</li>
+        <li>Nathalia Khaled</li>
+        <li>Osiris Rietman</li>
+        <li>Paulo Abraão de Almeida Pinto</li>
+        <li>Paulo Aranã</li>
+        <li>Paulo Cesar Antonio Junior</li>
+        <li>Paulo Vinicius</li>
+        <li>Pedro Henrique Gonçalves Carvalho</li>
+        <li>Pedro Lima</li>
+        <li>Pedro Maggion</li>
+        <li>Pedro Neto</li>
+        <li>Pedro Petry</li>
+        <li>pedro rosa</li>
+        <li>Rafael</li>
+        <li>Rafael Barrelo</li>
+        <li>Rafael Caetité Cruz</li>
+        <li>Rafael Gomes Silva</li>
+        <li>Rafael Mendes</li>
+        <li>Rafael Theotonio</li>
+        <li>Rafaella Turati</li>
+        <li>Rebeca</li>
+        <li>Renan Garcia</li>
+        <li>Renata Ortiz Brandão</li>
+        <li>Renato Rodrigues Medeiros</li>
+        <li>Renato Teixeira Sirqueira</li>
+        <li>Rodrigo Fernandes</li>
+        <li>Rodrigo Winck Lopes</li>
+        <li>Rômulo Batista Rodrigues</li>
+        <li>Ronaldo da Paixão Santos</li>
+        <li>Sabrina Menger</li>
+        <li>Sajames</li>
+        <li>Sergio Viana</li>
+        <li>Sickestmass</li>
+        <li>Sofia Guilhem Basilio</li>
+        <li>Suellen Pereira</li>
+        <li>Taís Tasqueto Tassinari</li>
+        <li>Talysson Oliveira Cassiano</li>
+        <li>Tamires Batista Ribeiro</li>
+        <li>Têto Tavares</li>
+        <li>Tiago Valadares Euzebio</li>
+        <li>TRU7A player</li>
+        <li>Victor Albanezi</li>
+        <li>Victor Bitencour Rangel</li>
+        <li>Victória F SANTOS</li>
+        <li>Vini</li>
+        <li>Vinicius Araujo de Oliveira</li>
+        <li>Vinicius Bezerra</li>
+        <li>Vinícius Dias Villar</li>
+        <li>Vinícius Tulio</li>
+        <li>Wesley Ide</li>
+        <li>Will</li>
+        <li>Willian Hildebrand</li>
+        <li>Yargo Gagliardi</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Fechamento da aba -->
+  <section class="closer">
+    <h3>Não era<br>só uma fase.</h3>
+    <p>E agora tem livro pra provar — com o nome de vocês por trás dele.</p>
+    <div class="closer-ctas">
+      <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black)" href="#" onclick="showPage('obrigado')">★ Leia o agradecimento</a>
+      <a class="btn" style="background:transparent;color:var(--black);border-color:var(--black)" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">Seguir no Instagram →</a>
+    </div>
+    <div class="closer-meta">Financiado coletivamente · obrigado a quem apoiou</div>
+  </section>
+</div>
+
 <!-- ===================== OBRIGADO ===================== -->
 <div class="page" id="page-obrigado">
   <div class="order-hero">
@@ -1926,6 +2143,8 @@
           <p class="order-desc" style="margin-top:16px">Não era só uma fase. E agora tem livro pra provar — com o seu nome por trás dele.</p>
           <div style="font-family:var(--font-head);font-size:28px;line-height:1.1;margin-top:28px">Tiago Simão &amp; Allan Stein</div>
           <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+            <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black);font-size:13px;padding:16px 28px" href="#" onclick="showPage('agradecimentos')">★ Ver os nomes dos apoiadores</a>
+            <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black);font-size:13px;padding:16px 28px" href="/rastreio">★ Rastrear meu livro</a>
             <a class="btn" style="background:var(--black);color:var(--acid);border-color:var(--black);font-size:13px;padding:16px 28px" href="https://instagram.com/hcemocional" target="_blank" rel="noopener">★ Acompanhe no @hcemocional</a>
           </div>
         </div>
@@ -2004,7 +2223,9 @@
         <a href="#" onclick="showPage('sobre')">Sobre</a>
         <a href="#" onclick="showPage('bandas')">Bandas × Eras</a>
         <a href="#" onclick="showPage('playlist')">Playlist</a>
+        <a href="#" onclick="showPage('agradecimentos')">Agradecimentos</a>
         <a href="#" onclick="showPage('obrigado')">Obrigado</a>
+        <a href="/rastreio">Rastrear pedido</a>
       </div>
     </div>
     <div>
@@ -2090,7 +2311,7 @@ function showPage(id) {
 
 // Deep-linking por hash: /#playlist abre a aba Playlist (usado por /playlist-do-livro)
 (function () {
-  var valid = ['home', 'sobre', 'playlist', 'bandas', 'obrigado'];
+  var valid = ['home', 'sobre', 'playlist', 'bandas', 'agradecimentos', 'obrigado'];
   function openFromHash() {
     var id = (location.hash || '').replace('#', '');
     // Links antigos para a aba de compra (#livro) caem no agradecimento.

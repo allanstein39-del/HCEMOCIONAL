@@ -1,0 +1,43 @@
+# Atualiza rastreio.json (planilha de rastreio + status dos Correios) e republica o site.
+name: Atualizar rastreio
+
+on:
+  schedule:
+    - cron: "17 */3 * * *"   # a cada 3 horas
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: rastreio
+  cancel-in-progress: false
+
+jobs:
+  rastreio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Gerar rastreio.json
+        env:
+          RASTREIO_SHEET_ID: ${{ secrets.RASTREIO_SHEET_ID }}
+          CORREIOS_USUARIO: ${{ secrets.CORREIOS_USUARIO }}
+          CORREIOS_CODIGO_ACESSO: ${{ secrets.CORREIOS_CODIGO_ACESSO }}
+          CORREIOS_CARTAO: ${{ secrets.CORREIOS_CARTAO }}
+        run: python3 scripts/rastreio.py
+      - name: Salvar e republicar
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # só os carimbos de hora mudaram? então não há o que publicar
+          if git diff --quiet -I'"(atualizado|consultado)"' -- rastreio.json; then
+            echo "Sem mudanças no rastreio."; exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898599+github-actions[bot]@users.noreply.github.com"
+          git add rastreio.json
+          git commit -m "Atualiza rastreio dos pedidos"
+          git push
+          # push feito com GITHUB_TOKEN não dispara o deploy sozinho
+          gh workflow run static.yml --ref "${GITHUB_REF_NAME}"
