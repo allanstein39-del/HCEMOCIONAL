@@ -97,6 +97,18 @@
     }
     .dados dd { margin: 0; font-size: 20px; line-height: 1.35; overflow-wrap: anywhere; }
     .dados .qtd { font-family: var(--font-mono); font-size: 14px; color: var(--acid); }
+    .apoio + .apoio { margin-top: 16px; padding-top: 16px; border-top: 1px dashed var(--mid); }
+    .apoio-nome { font-weight: 600; }
+    .itens-t {
+      margin-top: 10px; font-family: var(--font-mono); font-size: 10px; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .itens { list-style: none; margin: 6px 0 0; padding: 0; }
+    .itens li { position: relative; padding: 3px 0 3px 18px; font-size: 18px; line-height: 1.3; opacity: .9; }
+    .itens li::before {
+      content: ''; position: absolute; left: 2px; top: 12px; width: 6px; height: 6px; background: var(--acid);
+    }
+    .itens .n { font-family: var(--font-mono); font-size: 13px; color: var(--acid); }
 
     /* ---------- tela de confirmação ---------- */
     .confirma { margin-top: 40px; border: 2px solid var(--acid); }
@@ -286,12 +298,51 @@
       var m = String(a || '').trim().match(/^(\d+)\s+(.+)$/);
       return m ? '<span class="qtd">' + m[1] + '×</span> ' + esc(m[2]) : esc(a);
     }
+
+    // O que vem em cada recompensa (igual à seção "Suas recompensas" da home).
+    // Itens com fixo: true não multiplicam quando a pessoa levou 2 do mesmo apoio.
+    var RECOMPENSAS = [
+      { chave: 'emoegentetriste', itens: [
+        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
+        { t: 'Marca-página' }
+      ] },
+      { chave: 'dashboardconfessional', itens: [
+        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
+        { t: 'Adesivos exclusivos — arte de campanha' },
+        { t: 'Marca-página' }
+      ] },
+      { chave: 'sunnydayrealestate', itens: [
+        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
+        { t: 'Seu nome nos agradecimentos do livro', fixo: true },
+        { t: 'Palheta personalizada' },
+        { t: 'Adesivos exclusivos' },
+        { t: 'Pôster exclusivo' },
+        { t: 'Livreto impresso: Bandas presentes no livro' },
+        { t: 'Marca-página' },
+        { t: 'Playlist secreta no Spotify', fixo: true }
+      ] }
+    ];
+    function chave(s) {
+      return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+    function apoioHtml(a) {
+      var m = String(a || '').trim().match(/^(\d+)\s+(.+)$/);
+      var qtd = m ? +m[1] : 1, nome = chave(m ? m[2] : a);
+      var r = RECOMPENSAS.filter(function (x) { return nome.indexOf(x.chave) >= 0; })[0];
+      var h = '<div class="apoio"><div class="apoio-nome">' + fmtApoio(a) + '</div>';
+      if (r) {
+        h += '<div class="itens-t">Vem no pacote</div><ul class="itens">' + r.itens.map(function (i) {
+          return '<li><span class="n">' + (i.fixo ? 1 : qtd) + '×</span> ' + esc(i.t) + '</li>';
+        }).join('') + '</ul>';
+      }
+      return h + '</div>';
+    }
     function dadosHtml(nome, endereco, apoios) {
       var h = '';
       if (nome) h += '<dt>Nome</dt><dd>' + esc(nome) + '</dd>';
       if (endereco != null) h += '<dt>Endereço</dt><dd>' + (endereco ? fmtEndereco(endereco) : '<em>Endereço não informado</em>') + '</dd>';
       apoios = (apoios || []).filter(Boolean);
-      if (apoios.length) h += '<dt>' + (apoios.length > 1 ? 'Apoios' : 'Apoio') + '</dt><dd>' + apoios.map(fmtApoio).join('<br>') + '</dd>';
+      if (apoios.length) h += '<dt>' + (apoios.length > 1 ? 'Apoios' : 'Apoio') + '</dt><dd>' + apoios.map(apoioHtml).join('') + '</dd>';
       return h ? '<dl class="dados">' + h + '</dl>' : '';
     }
 
