@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Rastreio do pedido — A História do Hardcore Emocional</title>
-  <meta name="description" content="Acompanhe o envio do seu livro A História do Hardcore Emocional. Digite o e-mail usado no apoio e veja o código e o status nos Correios." />
+  <meta name="description" content="Acompanhe o seu pedido de A História do Hardcore Emocional. Digite o e-mail usado no apoio, confira seus dados e veja o status e o rastreio dos Correios." />
   <link rel="canonical" href="https://hcemocional.com.br/rastreio" />
   <meta name="robots" content="noindex" />
 
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="A História do Hardcore Emocional" />
   <meta property="og:title" content="Rastreie seu livro" />
-  <meta property="og:description" content="Digite o e-mail do apoio e veja o código de rastreio e o status do envio." />
+  <meta property="og:description" content="Digite o e-mail do apoio e veja o status do pedido e o código de rastreio." />
   <meta property="og:image" content="https://hcemocional.com.br/og-image.jpg" />
   <meta property="og:url" content="https://hcemocional.com.br/rastreio" />
   <meta property="og:locale" content="pt_BR" />
@@ -86,8 +86,54 @@
     }
     .msg strong { color: var(--paper); }
 
+    /* ---------- dados da pessoa (nome, endereço, apoio) ---------- */
+    .dados {
+      margin: 0; padding: 20px 24px; display: grid; grid-template-columns: max-content 1fr;
+      gap: 12px 20px; border-bottom: 1px solid var(--mid);
+    }
+    .dados dt {
+      font-family: var(--font-mono); font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--muted); padding-top: 5px;
+    }
+    .dados dd { margin: 0; font-size: 20px; line-height: 1.35; overflow-wrap: anywhere; }
+    .dados .qtd { font-family: var(--font-mono); font-size: 14px; color: var(--acid); }
+
+    /* ---------- tela de confirmação ---------- */
+    .confirma { margin-top: 40px; border: 2px solid var(--acid); }
+    .confirma-top { padding: 24px; border-bottom: 1px solid var(--mid); }
+    .confirma h2, .aviso-card h2 {
+      font-family: var(--font-head); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(40px, 9vw, 56px); line-height: .92; margin: 10px 0 0;
+    }
+    .pergunta { padding: 24px 24px 0; }
+    .pergunta strong {
+      display: block; font-family: var(--font-head); font-weight: 400; text-transform: uppercase;
+      font-size: clamp(30px, 7vw, 38px); line-height: 1;
+    }
+    .pergunta p { margin: 8px 0 0; opacity: .8; }
+    .escolha { display: flex; gap: 12px; flex-wrap: wrap; padding: 20px 24px 24px; }
+    .escolha button { flex: 1 1 220px; padding: 18px 16px; }
+    .escolha .nao { background: transparent; color: var(--paper); border: 2px solid var(--red); }
+    .escolha .nao:hover { background: rgba(232,50,26,.14); filter: none; }
+
+    /* ---------- aviso "vamos entrar em contato" ---------- */
+    .aviso-card { margin-top: 40px; padding: 24px; border: 1px solid var(--mid); border-left: 4px solid var(--red); }
+    .aviso-card .eyebrow { color: var(--red); }
+    .aviso-card p { margin: 16px 0 0; }
+    .aviso-card .obs { font-size: 17px; opacity: .7; }
+
     /* ---------- resultado ---------- */
+    .barra {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+      margin-top: 40px; font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    }
+    .barra button {
+      background: transparent; color: var(--acid); border: 1px solid var(--acid);
+      padding: 9px 12px; font-size: 10px;
+    }
+    .barra button:hover { background: rgba(211,247,79,.1); filter: none; }
     .card { margin-top: 40px; border: 1px solid var(--mid); }
+    .barra + .card { margin-top: 16px; }
     .card + .card { margin-top: 24px; }
     .card-top { padding: 24px; background: var(--acid); color: var(--black); }
     .card-top .hi { font-family: var(--font-mono); font-size: 11px; letter-spacing: .25em; text-transform: uppercase; }
@@ -113,7 +159,7 @@
       font-family: var(--font-head); font-weight: 400; text-transform: uppercase;
       font-size: clamp(32px, 7vw, 44px); line-height: .95; margin: 0 0 6px;
     }
-    .status .when { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+    .status .when { font-family: var(--font-mono); font-size: 12px; color: var(--muted); line-height: 1.6; }
 
     .timeline { list-style: none; margin: 0; padding: 8px 24px 16px; }
     .timeline li {
@@ -140,7 +186,6 @@
       color: var(--acid); text-decoration: none; letter-spacing: .15em; text-transform: uppercase;
     }
     .card-foot a:hover { text-decoration: underline; }
-    .empty { padding: 24px; opacity: .8; }
 
     .help {
       margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--mid);
@@ -152,7 +197,12 @@
     @media (max-width: 480px) {
       form { flex-direction: column; }
       button { padding: 16px; }
-      .status, .card-top { padding: 20px; }
+      .status, .card-top, .confirma-top, .aviso-card { padding: 20px; }
+      .dados { grid-template-columns: 1fr; gap: 2px; padding: 18px 20px; }
+      .dados dd { margin-bottom: 12px; }
+      .dados dd:last-child { margin-bottom: 0; }
+      .pergunta { padding: 20px 20px 0; }
+      .escolha { padding: 16px 20px 20px; }
       .timeline { padding: 8px 20px 12px; }
       .card-foot { padding: 14px 20px; }
     }
@@ -170,33 +220,42 @@
   </header>
 
   <main>
-    <div class="eyebrow">Envio dos livros · Correios</div>
+    <div class="eyebrow">Seu pedido · Envio dos livros</div>
     <h1>Rastreie<br>seu livro.</h1>
-    <p class="lead">Digite o e-mail que você usou no apoio pra ver o código de rastreio e onde o seu pacote está.</p>
+    <p class="lead">Digite o e-mail que você usou no apoio pra conferir seus dados, ver o status do pedido e o código de rastreio.</p>
 
     <form id="form" novalidate>
       <input id="email" type="email" aria-label="E-mail usado no apoio" inputmode="email" autocomplete="email" placeholder="seu@email.com" required />
-      <button id="btn" type="submit">Rastrear</button>
+      <button id="btn" type="submit">Entrar</button>
     </form>
 
     <div id="msg" class="msg" role="status" hidden></div>
     <div id="resultado" aria-live="polite"></div>
 
     <div class="help">
-      Os pedidos são atualizados automaticamente a cada 15 minutos, e o status dos Correios a cada 2 horas.<br>
-      Não encontrou seu pedido ou mudou de endereço? Fala com a gente no
+      O status dos Correios é consultado direto na fonte e se atualiza sozinho enquanto esta página estiver aberta.<br>
+      Não encontrou seu pedido? Fala com a gente no
       <a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>.
     </div>
   </main>
 
   <script>
   (function () {
+    // URL do app da Web do Apps Script da planilha (scripts/rastreio-apps-script.gs),
+    // a que termina em /exec. É ele que entrega nome, endereço e apoio e grava o
+    // SIM/NÃO da confirmação. Enquanto estiver vazia, a página funciona no modo
+    // antigo: só código e status vindos do rastreio.json, sem dados nem confirmação.
+    var API_RASTREIO = '';
+    var ATUALIZAR_MIN = 5;   // com a página aberta, o status é reconsultado a cada 5 min
+
     var form = document.getElementById('form');
     var input = document.getElementById('email');
     var btn = document.getElementById('btn');
     var msg = document.getElementById('msg');
     var out = document.getElementById('resultado');
-    var dados = null;
+    var reserva = null;      // rastreio.json: modo antigo e reserva do status dos Correios
+    var atual = null;        // { email, tela, quando }
+    var atualizando = false;
 
     function esc(s) {
       return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
@@ -210,18 +269,84 @@
       return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) +
         ' · ' + d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     }
+    function hora(d) { return d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); }
     function aviso(html) { msg.innerHTML = html; msg.hidden = false; }
+    var INSTA = '<a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>';
+
+    function primeiroNome(nome) {
+      var n = String(nome || '').trim().split(/\s+/)[0] || '';
+      return n ? n.charAt(0).toUpperCase() + n.slice(1).toLowerCase() : '';
+    }
+    // "Rua X, 12 – Centro – Cidade/UF – CEP ..." vira uma linha por parte
+    function fmtEndereco(e) {
+      return String(e || '').split(/\s+[–—-]\s+/).map(esc).join('<br>');
+    }
+    // "2 Emo é gente triste, né?" → "2× Emo é gente triste, né?"
+    function fmtApoio(a) {
+      var m = String(a || '').trim().match(/^(\d+)\s+(.+)$/);
+      return m ? '<span class="qtd">' + m[1] + '×</span> ' + esc(m[2]) : esc(a);
+    }
+    function dadosHtml(nome, endereco, apoios) {
+      var h = '';
+      if (nome) h += '<dt>Nome</dt><dd>' + esc(nome) + '</dd>';
+      if (endereco != null) h += '<dt>Endereço</dt><dd>' + (endereco ? fmtEndereco(endereco) : '<em>Endereço não informado</em>') + '</dd>';
+      apoios = (apoios || []).filter(Boolean);
+      if (apoios.length) h += '<dt>' + (apoios.length > 1 ? 'Apoios' : 'Apoio') + '</dt><dd>' + apoios.map(fmtApoio).join('<br>') + '</dd>';
+      return h ? '<dl class="dados">' + h + '</dl>' : '';
+    }
 
     async function sha256(texto) {
       var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto));
       return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
     }
-    async function carregar() {
-      if (dados) return dados;
+    async function carregarReserva() {
+      if (reserva) return reserva;
       var r = await fetch('/rastreio.json?v=' + Date.now(), { cache: 'no-store' });
       if (!r.ok) throw new Error('HTTP ' + r.status);
-      dados = await r.json();
-      return dados;
+      reserva = await r.json();
+      return reserva;
+    }
+
+    async function api(params, gravar) {
+      var r = gravar
+        ? await fetch(API_RASTREIO, { method: 'POST', body: new URLSearchParams(params) })
+        : await fetch(API_RASTREIO + '?' + new URLSearchParams(Object.assign({ t: Date.now() }, params)));
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var d = await r.json();
+      if (!d.ok && d.erro !== 'nao_encontrado') throw new Error(d.erro || 'erro');
+      return d;
+    }
+
+    // Se o Apps Script não conseguiu falar com os Correios agora, usa o último
+    // status salvo pela Action do GitHub (rastreio.json).
+    async function completarCorreios(d, email) {
+      var faltam = (d.pedidos || []).filter(function (p) { return p.entrega === 'correios' && p.eventos == null; });
+      if (!faltam.length) return;
+      try {
+        reserva = null;
+        var lista = ((await carregarReserva()).pedidos || {})[await sha256(email)] || [];
+        faltam.forEach(function (p) {
+          var x = lista.filter(function (i) { return i.codigo === p.codigo; })[0];
+          if (x) { p.eventos = x.eventos; p.mensagem = x.mensagem; p.consultado = x.consultado; }
+        });
+      } catch (e) {}
+    }
+
+    // Modo antigo (sem API_RASTREIO): lê só o rastreio.json
+    async function buscarReserva(email) {
+      reserva = null;
+      var lista = ((await carregarReserva()).pedidos || {})[await sha256(email)];
+      if (!lista || !lista.length) return { ok: false, erro: 'nao_encontrado' };
+      return {
+        ok: true, email: email, confirmacao: 'RESERVA',
+        pedidos: lista.map(function (i) {
+          return {
+            primeiro: i.nome, envia: i.entrega !== 'sem_envio',
+            entrega: i.entrega || (i.codigo ? 'correios' : 'grafica'),
+            codigo: i.codigo, eventos: i.eventos, mensagem: i.mensagem, consultado: i.consultado
+          };
+        })
+      };
     }
 
     function tipoStatus(desc) {
@@ -230,54 +355,179 @@
       if (/(não entregue|nao entregue|devolvid|ausente|recusad|extraviad|aguardando retirada|endereço incorreto|endereco incorreto)/.test(d)) return 'alerta';
       return '';
     }
+    function status(tipo, titulo, texto) {
+      return '<div class="status ' + tipo + '"><span class="dot"></span><div><h2>' + titulo + '</h2>' +
+        '<div class="when">' + texto + '</div></div></div>';
+    }
 
-    function render(p) {
-      var html = '<article class="card">';
-      html += '<div class="card-top"><div class="hi">' + (p.nome ? 'Oi, ' + esc(p.nome) + ' · ' : '') + 'Código de rastreio</div>';
-      if (p.codigo) {
-        html += '<div class="code-row"><span class="code">' + esc(p.codigo) + '</span>' +
-          '<button class="copy" type="button" data-copy="' + esc(p.codigo) + '">Copiar</button></div>';
-      } else {
-        html += '<div class="code-row"><span class="code">Aguardando postagem</span></div>';
+    function cardPedido(p) {
+      var oi = p.primeiro ? 'Oi, ' + esc(p.primeiro) + ' · ' : '';
+      var dados = p.nome ? dadosHtml(p.nome, p.envia ? p.endereco : null, [p.apoio]) : '';
+      var h = '<article class="card">';
+
+      if (!p.envia) {
+        h += '<div class="card-top"><div class="hi">' + oi + 'Seu apoio</div>' +
+          '<div class="code-row"><span class="code">Valeu demais!</span></div></div>' + dados;
+        h += status('ok', 'Sem envio', 'Esse apoio não tem recompensa física, então não há nada pra rastrear. Obrigado por fazer esse livro existir!');
+        return h + '</article>';
       }
-      html += '</div>';
 
+      if (p.entrega === 'correios') {
+        h += '<div class="card-top"><div class="hi">' + oi + 'Código de rastreio</div>' +
+          '<div class="code-row"><span class="code">' + esc(p.codigo) + '</span>' +
+          '<button class="copy" type="button" data-copy="' + esc(p.codigo) + '">Copiar</button></div></div>';
+      } else {
+        h += '<div class="card-top"><div class="hi">' + oi + 'Status do pedido</div>' +
+          '<div class="code-row"><span class="code">' + (p.entrega === 'maos' ? 'Entrega em mãos' : 'Na gráfica') + '</span></div></div>';
+      }
+      h += dados;
+
+      var confirmado = p.confirmacao === 'SIM' ? '<li><div class="t">Dados de entrega confirmados</div></li>' : '';
       var ev = p.eventos || [];
-      if (!p.codigo) {
-        html += '<div class="status"><span class="dot"></span><div><h2>Em produção</h2>' +
-          '<div class="when">Seu livro e todos os materiais estão na gráfica.</div></div></div>';
-        html += '<ol class="timeline">' +
+      if (p.entrega === 'grafica') {
+        h += status('', 'Na gráfica', 'Seu pedido está na gráfica. Assim que estiver pronto, colocaremos aqui o código de envio.');
+        h += '<ol class="timeline">' +
           '<li class="todo"><div class="t">Entregue</div></li>' +
           '<li class="todo"><div class="t">Postado nos Correios</div><div class="d">O código de rastreio aparece aqui assim que o pacote for postado.</div></li>' +
-          '<li class="now"><div class="t">Em produção na gráfica</div><div class="d">Livro, adesivos, pôster e marca-página sendo impressos.</div></li>' +
-          '<li><div class="t">Apoio confirmado</div></li>' +
-          '</ol>';
+          '<li class="now"><div class="t">Na gráfica</div><div class="d">Seu pedido está sendo produzido.</div></li>' +
+          confirmado + '<li><div class="t">Apoio confirmado</div></li></ol>';
+      } else if (p.entrega === 'maos') {
+        h += status('ok', 'Entrega em mãos', 'Seu pedido será entregue em mãos por nós mesmos.');
+        h += '<ol class="timeline">' +
+          '<li class="todo"><div class="t">Entregue</div></li>' +
+          '<li class="now"><div class="t">Aguardando a entrega em mãos</div><div class="d">Não vai pelos Correios: a gente mesmo leva até você.</div></li>' +
+          confirmado + '<li><div class="t">Apoio confirmado</div></li></ol>';
       } else if (ev.length) {
         var ult = ev[0];
-        html += '<div class="status ' + tipoStatus(ult.descricao) + '"><span class="dot"></span><div>' +
-          '<h2>' + esc(ult.descricao) + '</h2><div class="when">' + dataBR(ult.data) +
-          (ult.local ? ' · ' + esc(ult.local) : '') + '</div></div></div>';
-        html += '<ol class="timeline">';
+        h += status(tipoStatus(ult.descricao), esc(ult.descricao), dataBR(ult.data) + (ult.local ? ' · ' + esc(ult.local) : ''));
+        h += '<ol class="timeline">';
         ev.forEach(function (e) {
-          html += '<li><div class="t">' + esc(e.descricao) + '</div>' +
+          h += '<li><div class="t">' + esc(e.descricao) + '</div>' +
             (e.detalhe ? '<div class="d">' + esc(e.detalhe) + '</div>' : '') +
             '<div class="m">' + dataBR(e.data) + (e.local ? ' · ' + esc(e.local) : '') +
             (e.destino ? ' → ' + esc(e.destino) : '') + '</div></li>';
         });
-        html += '</ol>';
+        h += '</ol>';
       } else {
-        html += '<div class="status"><span class="dot"></span><div><h2>Postado, aguardando os Correios</h2>' +
-          '<div class="when">' + esc(p.mensagem || 'O status aparece aqui assim que os Correios registrarem a movimentação.') + '</div></div></div>';
+        h += status('', 'Postado, aguardando os Correios',
+          esc(p.mensagem || 'O status aparece aqui assim que os Correios registrarem a movimentação.'));
       }
 
-      if (p.codigo) {
-        html += '<div class="card-foot"><span>' + (p.consultado ? 'Consultado em ' + dataBR(p.consultado) : '') + '</span>' +
+      if (p.entrega === 'correios') {
+        h += '<div class="card-foot"><span>' + (p.consultado ? 'Consultado nos Correios em ' + dataBR(p.consultado) : '') + '</span>' +
           '<a href="https://rastreamento.correios.com.br/app/index.php" target="_blank" rel="noopener" data-copy="' + esc(p.codigo) + '">Ver no site dos Correios →</a></div>';
       }
-      return html + '</article>';
+      return h + '</article>';
     }
 
+    // ---------- telas ----------
+    function telaConfirmacao(d) {
+      var grupos = [];   // mesmo nome + endereço = um bloco só, com todos os apoios
+      d.pedidos.forEach(function (p) {
+        if (!p.envia) return;
+        var g = grupos.filter(function (x) { return x.nome === p.nome && x.endereco === p.endereco; })[0];
+        if (!g) grupos.push(g = { nome: p.nome, endereco: p.endereco, apoios: [] });
+        g.apoios.push(p.apoio);
+      });
+      out.innerHTML = '<section class="confirma" aria-labelledby="conf-t">' +
+        '<div class="confirma-top"><div class="eyebrow">Antes de ver o seu pedido</div>' +
+        '<h2 id="conf-t" tabindex="-1">Confira seus dados</h2></div>' +
+        grupos.map(function (g) { return dadosHtml(g.nome, g.endereco, g.apoios); }).join('') +
+        '<div class="pergunta"><strong>Esses dados estão corretos?</strong>' +
+        '<p>Verifique com calma: eles poderão ser alterados uma única vez em caso de erro.</p></div>' +
+        '<div class="escolha">' +
+        '<button type="button" class="sim" data-resp="sim">Sim, estão corretos</button>' +
+        '<button type="button" class="nao" data-resp="nao">Não, tem algo errado</button>' +
+        '</div></section>';
+    }
+
+    function telaContato(d) {
+      out.innerHTML = '<section class="aviso-card">' +
+        '<div class="eyebrow">Recebemos seu aviso</div>' +
+        '<h2 tabindex="-1">A gente vai falar com você</h2>' +
+        '<p>Vamos entrar em contato com você pelo e-mail <strong>' + esc(d.email) + '</strong> para atualizar suas informações. ' +
+        'Fica de olho na caixa de entrada (e no spam, por via das dúvidas).</p>' +
+        '<p class="obs">Assim que os dados forem corrigidos, o status do pedido e o rastreio aparecem aqui.</p>' +
+        '</section>';
+    }
+
+    function telaRastreio(d) {
+      var h = '';
+      if (d.confirmacao !== 'RESERVA') {
+        h += '<div class="barra"><span>Atualizado às ' + hora(atual.quando) + ' · atualiza sozinho a cada ' + ATUALIZAR_MIN + ' min</span>' +
+          '<button type="button" data-atualizar>Atualizar agora</button></div>';
+      }
+      out.innerHTML = h + d.pedidos.map(function (p) {
+        p.primeiro = p.primeiro || primeiroNome(p.nome);
+        return cardPedido(p);
+      }).join('');
+    }
+
+    function mostrar(d, foco) {
+      msg.hidden = true;
+      if (!d.ok) {
+        out.innerHTML = '';
+        atual.tela = null;
+        aviso('<strong>E-mail não encontrado.</strong> Não achamos nenhum pedido com <strong>' + esc(atual.email) + '</strong>. ' +
+          'Confere se é o mesmo e-mail do apoio. Se ainda não aparecer, chama no ' + INSTA + '.');
+        return;
+      }
+      atual.quando = new Date();
+      atual.tela = d.confirmacao === 'AGUARDANDO' ? 'confirmar' : d.confirmacao === 'NAO' ? 'contato' : 'rastreio';
+      if (atual.tela === 'confirmar') telaConfirmacao(d);
+      else if (atual.tela === 'contato') telaContato(d);
+      else telaRastreio(d);
+      if (foco) {
+        var alvo = out.querySelector('[tabindex="-1"]') || out.firstElementChild;
+        if (alvo && alvo.scrollIntoView) alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (alvo && alvo.focus) alvo.focus({ preventScroll: true });
+      }
+    }
+
+    async function responder(botao) {
+      var resp = botao.getAttribute('data-resp');
+      var botoes = out.querySelectorAll('[data-resp]');
+      var texto = botao.textContent;
+      botoes.forEach(function (b) { b.disabled = true; });
+      botao.textContent = 'Salvando…';
+      msg.hidden = true;
+      try {
+        var d = await api({ email: atual.email, resposta: resp }, true);
+        if (d.ok) await completarCorreios(d, atual.email);
+        mostrar(d, true);
+      } catch (err) {
+        botoes.forEach(function (b) { b.disabled = false; });
+        botao.textContent = texto;
+        aviso('Não conseguimos salvar sua resposta agora. Tenta de novo em alguns instantes.');
+      }
+    }
+
+    async function atualizar(manual) {
+      if (!API_RASTREIO || !atual || atual.tela !== 'rastreio' || atualizando) return;
+      var email = atual.email;
+      var b = out.querySelector('[data-atualizar]');
+      atualizando = true;
+      if (b) { b.disabled = true; b.textContent = 'Atualizando…'; }
+      try {
+        var d = await api({ email: email });
+        if (d.ok) await completarCorreios(d, email);
+        if (atual && atual.email === email) mostrar(d);
+      } catch (err) {
+        if (b) { b.disabled = false; b.textContent = 'Atualizar agora'; }
+        if (manual) aviso('Não conseguimos atualizar agora. Tenta de novo em alguns minutos.');
+      } finally {
+        atualizando = false;
+      }
+    }
+    setInterval(function () { if (!document.hidden) atualizar(false); }, ATUALIZAR_MIN * 60000);
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden && atual && atual.quando && Date.now() - atual.quando > ATUALIZAR_MIN * 60000) atualizar(false);
+    });
+
     out.addEventListener('click', function (e) {
+      var resp = e.target.closest('[data-resp]');
+      if (resp) { responder(resp); return; }
+      if (e.target.closest('[data-atualizar]')) { atualizar(true); return; }
       var el = e.target.closest('[data-copy]');
       if (!el || !navigator.clipboard) return;
       navigator.clipboard.writeText(el.getAttribute('data-copy')).then(function () {
@@ -295,22 +545,17 @@
         input.focus();
         return;
       }
+      atual = { email: email, tela: null, quando: null };
       btn.disabled = true; btn.textContent = 'Buscando…';
       try {
-        var d = await carregar();
-        var lista = (d.pedidos || {})[await sha256(email)];
-        if (!lista || !lista.length) {
-          aviso('<strong>E-mail não encontrado.</strong> Não achamos nenhum pedido com <strong>' + esc(email) + '</strong>. ' +
-            'Confere se é o mesmo e-mail do apoio. Se ainda não aparecer, chama no ' +
-            '<a href="https://instagram.com/hcemocional" target="_blank" rel="noopener">@hcemocional</a>.');
-        } else {
-          out.innerHTML = lista.map(render).join('');
-          if (window.history) history.replaceState(null, '', '/rastreio');
-        }
+        var d = API_RASTREIO ? await api({ email: email }) : await buscarReserva(email);
+        if (d.ok && API_RASTREIO) await completarCorreios(d, email);
+        mostrar(d, true);
+        if (window.history) history.replaceState(null, '', '/rastreio');
       } catch (err) {
-        aviso('Não conseguimos carregar o rastreio agora. Tenta de novo em alguns minutos.');
+        aviso('Não conseguimos carregar o seu pedido agora. Tenta de novo em alguns minutos.');
       } finally {
-        btn.disabled = false; btn.textContent = 'Rastrear';
+        btn.disabled = false; btn.textContent = 'Entrar';
       }
     });
   })();

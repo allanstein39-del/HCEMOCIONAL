@@ -3,9 +3,17 @@
 
 Roda no GitHub Actions (.github/workflows/rastreio.yml). Só usa a stdlib.
 
-O site e o repositório são públicos, então e-mails NUNCA vão pro JSON:
-cada pedido é indexado pelo SHA-256 do e-mail normalizado (minúsculo,
-sem espaços). A página /rastreio calcula o mesmo hash no navegador.
+O site e o repositório são públicos, então e-mails e endereços NUNCA vão
+pro JSON: cada pedido é indexado pelo SHA-256 do e-mail normalizado
+(minúsculo, sem espaços). A página /rastreio calcula o mesmo hash no navegador.
+
+Nome completo, endereço, apoio e a confirmação dos dados vêm do Apps Script
+da planilha (scripts/rastreio-apps-script.gs). Este JSON é a reserva: serve
+a página enquanto o Apps Script não estiver configurado e quando a consulta
+aos Correios pelo Apps Script falhar.
+
+Coluna "Codigo de rastreio": vazia = na gráfica; "São Carlos" = entrega em
+mãos; código dos Correios = consulta o status.
 
 Variáveis de ambiente (secrets do repositório):
   RASTREIO_SHEET_ID        ID da planilha (compartilhada como "qualquer pessoa com o link")
@@ -14,13 +22,15 @@ Variáveis de ambiente (secrets do repositório):
   CORREIOS_CARTAO          número do cartão de postagem (opcional)
 Sem as credenciais dos Correios, tenta o endpoint público do app.
 """
-import base64, csv, hashlib, io, json, os, sys, time, unicodedata
+import base64, csv, hashlib, io, json, os, re, sys, time, unicodedata
 import urllib.request, urllib.error
 from datetime import datetime, timezone
 
 # A planilha é lida a cada execução (a cada 15 min); os Correios só são
 # consultados de novo para um código depois deste intervalo.
 CONSULTA_CORREIOS_HORAS = 2
+
+CODIGO_CORREIOS = re.compile(r'^[A-Z]{2}\d{9}[A-Z]{2}$')
 
 SAIDA = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'rastreio.json')
 UA = 'Mozilla/5.0 (hcemocional.com.br rastreio)'
@@ -65,6 +75,7 @@ def ler_planilha(sheet_id):
         return None
 
     i_nome, i_email, i_cod = col('nome'), col('email'), col('codigo', 'rastreio')
+    i_apoio, i_end = col('apoio', 'recompensa'), col('endereco')
     if i_email is None:
         sys.exit('Planilha sem coluna de e-mail. Cabeçalho: %r' % linhas[0])
     pedidos = []
@@ -73,8 +84,16 @@ def ler_planilha(sheet_id):
         email = pega(i_email).lower().replace(' ', '')
         if '@' not in email:
             continue
-        pedidos.append({'nome': pega(i_nome), 'email': email,
-                        'codigo': pega(i_cod).upper().replace(' ', '') or None})
+        bruto, codigo = chave(pega(i_cod)), None
+        if 'semrecompensa' in chave(pega(i_apoio)) or chave(pega(i_end)).startswith('semendereco'):
+            entrega = 'sem_envio'
+        elif 'saocarlos' in bruto or 'maos' in bruto:
+            entrega = 'maos'
+        elif bruto:
+            entrega, codigo = 'correios', pega(i_cod).upper().replace(' ', '')
+        else:
+            entrega = 'grafica'
+        pedidos.append({'nome': pega(i_nome), 'email': email, 'codigo': codigo, 'entrega': entrega})
     return pedidos
 
 
@@ -129,9 +148,9 @@ def main():
     cache, saida = {}, {}
     for p in ler_planilha(sheet_id):
         h = hashlib.sha256(p['email'].encode()).hexdigest()
-        item = {'nome': (p['nome'].split() or [''])[0], 'codigo': p['codigo'],
+        item = {'nome': (p['nome'].split() or [''])[0], 'codigo': p['codigo'], 'entrega': p['entrega'],
                 'eventos': [], 'mensagem': None, 'consultado': None}
-        if p['codigo']:
+        if p['codigo'] and CODIGO_CORREIOS.match(p['codigo']):
             if p['codigo'] not in cache:
                 velho = next((x for x in anterior.get(h, []) if x.get('codigo') == p['codigo']), None)
                 if velho and recente(velho.get('consultado')):
