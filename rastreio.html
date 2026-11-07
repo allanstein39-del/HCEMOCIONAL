@@ -300,49 +300,81 @@
     }
 
     // O que vem em cada recompensa (igual à seção "Suas recompensas" da home).
-    // Itens com fixo: true não multiplicam quando a pessoa levou 2 do mesmo apoio.
-    var RECOMPENSAS = [
-      { chave: 'emoegentetriste', itens: [
-        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
-        { t: 'Marca-página' }
-      ] },
-      { chave: 'dashboardconfessional', itens: [
-        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
-        { t: 'Adesivos exclusivos — arte de campanha' },
-        { t: 'Marca-página' }
-      ] },
-      { chave: 'sunnydayrealestate', itens: [
-        { t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
-        { t: 'Seu nome nos agradecimentos do livro', fixo: true },
-        { t: 'Palheta personalizada' },
-        { t: 'Adesivos exclusivos' },
-        { t: 'Pôster exclusivo' },
-        { t: 'Livreto impresso: Bandas presentes no livro' },
-        { t: 'Marca-página' },
-        { t: 'Playlist secreta no Spotify', fixo: true }
-      ] }
+    // ITENS fica na ordem em que a lista aparece; fixo: true = sai 1× mesmo com
+    // mais de um apoio (o nome nos agradecimentos e a playlist não dobram).
+    var ITENS = [
+      { id: 'livro', t: 'Exemplar do Livro — 1ª edição, exclusiva de campanha' },
+      { id: 'nome', t: 'Seu nome nos agradecimentos do livro', fixo: true },
+      { id: 'palheta', t: 'Palheta personalizada' },
+      { id: 'adesivos-campanha', t: 'Adesivos exclusivos — arte de campanha' },
+      { id: 'adesivos', t: 'Adesivos exclusivos' },
+      { id: 'poster', t: 'Pôster exclusivo' },
+      { id: 'livreto', t: 'Livreto impresso: Bandas presentes no livro' },
+      { id: 'marca', t: 'Marca-página' },
+      { id: 'playlist', t: 'Playlist secreta no Spotify', fixo: true }
     ];
-    function chave(s) {
-      return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+    // busca: como o apoio aparece no texto da planilha (sem acento, minúsculo).
+    var RECOMPENSAS = [
+      { nome: 'Emo é gente triste, né?', busca: ['emo e gente triste', 'gente triste'],
+        itens: ['livro', 'marca'] },
+      { nome: 'Já ouviu Dashboard Confessional?', busca: ['dashboard confessional', 'dashboard'],
+        itens: ['livro', 'adesivos-campanha', 'marca'] },
+      { nome: 'Sunny Day Real Estate é emo raiz', busca: ['sunny day real estate e emo raiz', 'sunny day real estate', 'sunny day', 'emo raiz'],
+        itens: ['livro', 'nome', 'palheta', 'adesivos', 'poster', 'livreto', 'marca', 'playlist'] }
+    ];
+    function solto(s) {
+      return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ').trim();
     }
-    function apoioHtml(a) {
-      var m = String(a || '').trim().match(/^(\d+)\s+(.+)$/);
-      var qtd = m ? +m[1] : 1, nome = chave(m ? m[2] : a);
-      var r = RECOMPENSAS.filter(function (x) { return nome.indexOf(x.chave) >= 0; })[0];
-      var h = '<div class="apoio"><div class="apoio-nome">' + fmtApoio(a) + '</div>';
-      if (r) {
-        h += '<div class="itens-t">Vem no pacote</div><ul class="itens">' + r.itens.map(function (i) {
-          return '<li><span class="n">' + (i.fixo ? 1 : qtd) + '×</span> ' + esc(i.t) + '</li>';
-        }).join('') + '</ul>';
+    // Separa um texto da coluna Apoio em [{ r: recompensa, qtd }], aceitando vários
+    // apoios na mesma célula: "1 Emo é gente triste, né? e 1 Sunny Day Real Estate é emo raiz",
+    // "1 Emo + 1 Dashboard", "2x Emo"... A quantidade é o número logo antes do nome (padrão 1).
+    var BUSCA = [];
+    RECOMPENSAS.forEach(function (r) { r.busca.forEach(function (b) { BUSCA.push({ b: b, r: r }); }); });
+    BUSCA.sort(function (x, y) { return y.b.length - x.b.length; });
+    var RE_APOIO = new RegExp('\\b(' + BUSCA.map(function (x) { return x.b; }).join('|') + ')\\b', 'g');
+    function lerApoio(texto) {
+      var t = solto(texto), achados = [], antes = 0, m;
+      RE_APOIO.lastIndex = 0;
+      while ((m = RE_APOIO.exec(t))) {
+        var r = BUSCA.filter(function (x) { return x.b === m[1]; })[0].r;
+        var nums = t.slice(antes, m.index).match(/\d+/g);
+        achados.push({ r: r, qtd: nums ? Math.max(1, +nums[nums.length - 1]) : 1 });
+        antes = m.index + m[1].length;
       }
-      return h + '</div>';
+      return achados;
+    }
+    // Junta todos os apoios da pessoa e soma o que vem no pacote.
+    function pacoteHtml(apoios) {
+      var lista = [], outros = [];
+      apoios.forEach(function (a) {
+        var achados = lerApoio(a);
+        if (!achados.length) { outros.push(a); return; }
+        achados.forEach(function (x) {
+          var j = lista.filter(function (y) { return y.r === x.r; })[0];
+          if (j) j.qtd += x.qtd; else lista.push({ r: x.r, qtd: x.qtd });
+        });
+      });
+      var h = lista.map(function (x) {
+        return '<div class="apoio-nome"><span class="qtd">' + x.qtd + '×</span> ' + esc(x.r.nome) + '</div>';
+      }).join('') + outros.map(function (a) { return '<div class="apoio-nome">' + fmtApoio(a) + '</div>'; }).join('');
+      var itens = ITENS.map(function (i) {
+        var n = 0;
+        lista.forEach(function (x) { if (x.r.itens.indexOf(i.id) >= 0) n += i.fixo ? 1 : x.qtd; });
+        return n ? '<li><span class="n">' + (i.fixo ? 1 : n) + '×</span> ' + esc(i.t) + '</li>' : '';
+      }).join('');
+      if (itens) h += '<div class="itens-t">Vem no pacote</div><ul class="itens">' + itens + '</ul>';
+      return { html: '<div class="apoio">' + h + '</div>', total: lista.length + outros.length };
     }
     function dadosHtml(nome, endereco, apoios) {
       var h = '';
       if (nome) h += '<dt>Nome</dt><dd>' + esc(nome) + '</dd>';
       if (endereco != null) h += '<dt>Endereço</dt><dd>' + (endereco ? fmtEndereco(endereco) : '<em>Endereço não informado</em>') + '</dd>';
       apoios = (apoios || []).filter(Boolean);
-      if (apoios.length) h += '<dt>' + (apoios.length > 1 ? 'Apoios' : 'Apoio') + '</dt><dd>' + apoios.map(apoioHtml).join('') + '</dd>';
+      if (apoios.length) {
+        var pac = pacoteHtml(apoios);
+        h += '<dt>' + (pac.total > 1 ? 'Apoios' : 'Apoio') + '</dt><dd>' + pac.html + '</dd>';
+      }
       return h ? '<dl class="dados">' + h + '</dl>' : '';
     }
 
